@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+ 
+        tr,td,th{
+            border:1px solid black;
+        }  
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           margin-top: 50px;
+        }
+     
+</style>
+<body>
+    <h4 style="width:30%;display: block;margin: 40px auto;margin-bottom:-20px">studentId: <%= data[0].stdentId%></h4>
+    <h4 style="width:30%;display: block;margin: 40px auto;margin-bottom:-20px">StudentName: <%=data[0].firstname%></h4>
+    <h4 style="width:30%;display: block;margin: 40px auto;">presence Days: <%=attendence[0].total%></h4>
+    <div class="container">
+    <table>
+        <tr>
+         
+            <th>subjectName</th>
+            <th>prelim</th>
+            <th>prelim_theory</th>
+            <th>terminal</th>
+            <th>terminal_theory</th>
+            <th>final</th>
+            <th>final_theory</th>
+            <th>obtain</th>
+            <th>total</th>
+        </tr>
+        <% data.forEach(entry=>{ %>
+            <tr>
+               
+             <td><%= entry.subjectName%></td>
+             <td><%= entry.prelim %> </td>
+             <td><%= entry.prelim_theory %></td>
+             <td><%= entry.terminal %> </td>
+             <td><%= entry.terminal_theory %></td>
+             <td><%= entry.final %> </td>
+             <td><%= entry.final_theory %></td>
+             <td><%= Number(entry.prelim)+  Number(entry.prelim_theory)+Number(entry.terminal)+  Number(entry.terminal_theory)
+                +Number(entry.final)+  Number(entry.final_theory)%></td>
+              <%total_marks+=  (Number(entry.prelim)+  Number(entry.prelim_theory)+Number(entry.terminal)+  Number(entry.terminal_theory)
+                +Number(entry.final)+  Number(entry.final_theory))%>
+             <td>200</td>
+          </tr> 
+         <%  }) %>
+
+    <tr>
+        <td colspan="7">Result</td>
+   
+       <td ><%=total_marks%></td> 
+       <td>1200</td>
+    </tr>
+
+    </table>
+
+
+ 
+</div>
+
+</body>
+</html>

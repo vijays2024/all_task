@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        tr,td,th{
+            border:1px solid black;
+        }        
+                .pagination{
+          display: flex;
+          gap:20px;
+          justify-content: center;
+        }
+        .page-link{
+          text-decoration: none;
+        }
+        .page-item{
+          text-decoration: none;
+          list-style: none;
+          font-size: 30px;
+        }
+            </style>
+
+</head>
+<body>
+  <h2 style="width:30%;display: block;margin: 40px auto;">solanki vijaykumar </h2>
+<table>
+    <tr>
+        <th rowspan="2">Id</th>
+        <th rowspan="2">Name</th>
+        <th colspan="2">Prelims Exam</th>
+        <th colspan="2">Terminal Exam</th>
+        <th colspan="2">final Exam</th>
+        <th rowspan="2">obtained Marks</th>
+        <th rowspan="2">Total Marks</th>
+        <th rowspan="2">Detailed Result</th>
+
+        <tr>
+            <th>prelimsTheory</th>
+            <th>prelimsPractical</th>
+            <th>TerminalTheory</th>
+            <th>TerminalPractical</th>
+            <th>finalTheory</th>
+            <th>finalPractical</th>
+        </tr>
+    </tr>
+    <% data.forEach(entry=>{ %>
+        <tr>
+            <td><%= entry.stdentId%></td>
+         <td><%= entry.firstname%></td>
+         <td><%= entry.prelim %> </td>
+         <td><%= entry.prelim_theory %></td>
+         <td><%= entry.terminal %> </td>
+         <td><%= entry.terminal_theory %></td>
+         <td><%= entry.final %> </td>
+         <td><%= entry.final_theory %></td>
+         <td><%= Number(entry.prelim)+  Number(entry.prelim_theory)+Number(entry.terminal)+  Number(entry.terminal_theory)
+            +Number(entry.final)+  Number(entry.final_theory)%></td>
+            <td>1200</td>
+            <td><a href="/results/<%=entry.stdentId%>"> Result</a></td>
+      </tr> 
+     <%  }) %>
+
+</table>
+
+
+    <nav>
+        <ul class="pagination">
+          <li class="page-item"><a  class="page-link" href="/results?&page=1"><<</a></li>
+          <% if( hasPreviousPage) { %>
+    
+            <li class="page-item"><a  class="page-link" href="/results?page=<%= previousPage%>"><</a></li>
+            <% } else {%>
+              <li class="page-item disabled"><span class="page-link"><</span></li>
+              <% } %>
+              <li class="page-item"><%=currentPage%></li>
+              <% if(hasNextPage){%>
+                <li class="page-item">
+                  <a href="/results?page=<%=nextPage%>" class="page-link">></a>
+                </li>
+                <% } else { %>
+                  <li class="page-item disabled">
+                    <span class="page-link">></span>
+                  </li>
+                  <% }%>
+                  <li class="page-item">
+                    <a href="/results?page=<%=lastIndex%>" class="page-link">>></a>
+                  </li>
+        </ul>
+       </nav>
+    
+</body>
+</html>

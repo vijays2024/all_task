@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table,td,th{
+      border: 1px solid black;
+    }
+    .disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
+}
+div{
+  display: flex;
+  gap:10px;
+}
+
+.pagination{
+  display: flex;
+  gap:20px;
+  justify-content: center;
+}
+.page-link{
+  text-decoration: none;
+}
+.page-item{
+  text-decoration: none;
+  list-style: none;
+  font-size: 30px;
+}
+li{
+  list-style: none;
+}
+a{
+  text-decoration: none;
+}
+.header{
+  display: flex;
+  justify-content: center;
+}
+  </style>
+</head>
+
+<body>
+  <div class="header">
+  <h3>24DEV081 vijaykumar</h3>
+  <h3>Delimiter Search</h3>
+</div>
+<form action="#" method="get">
+
+    <label for="query1">write your query here</label>
+    <input type="text" name="query" id="query1" value="<%=query%>">
+    <input type="submit" value="Go">
+</form>
+ <table>
+
+  <tr>
+    <td>firstname</td>
+    <td>_</td>
+  </tr>
+  <tr>
+    <td>middlename</td>
+    <td>^</td>
+  </tr>
+  <tr>
+    <td>email</td>
+    <td>$</td>
+  </tr>
+  <tr>
+    <td>city</td>
+    <td>:</td>
+  </tr>
+ </table>
+  <table>
+    <tr>
+   <th>firstname</th>
+ <th>middlename</th>
+<th>DOB</th>
+<th>contactNum</th>
+<th>emailId</th>
+<th>city</th>
+<th>country</th>  
+<th>countryCode</th>  
+    </tr>
+  
+    <% data.forEach(entry=>{ %>
+       <tr>
+        <td><%= entry.firstname%></td>
+        <td><%= entry.middlename%> </td>
+        
+        <td><%= entry.DOB %> </td>
+        <td><%= entry.contactNum%> </td>
+        <td><%= entry.emailId%> </td>
+    
+        <td><%= entry.city %> </td>
+       
+        <td><%= entry.country %> </td>
+        <td><%= entry.zipcode %> </td>
+       
+       </tr> 
+    <%  }) %>
+  </table>
+
+  
+
+
+  <script>
+   
+</script>
+</body>
+
+</html>

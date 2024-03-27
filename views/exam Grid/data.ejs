@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+tr,td,th{
+    border:1px solid black;
+}        
+        .pagination{
+  display: flex;
+  gap:20px;
+  justify-content: center;
+}
+.page-link{
+  text-decoration: none;
+}
+.page-item{
+  text-decoration: none;
+  list-style: none;
+  font-size: 30px;
+}
+    </style>
+</head>
+<body>
+  <h3>solanki vijaykumar </h3>
+  <h4>Date :27-02-2024</h4>
+     <select name="select" id="select">
+      <option value="">select option</option>
+      <option data-month="<%=month%>" value="2023-12-30">December-2023</option>
+      <option  data-month="<%=month%>" value="2024-01-30">january-2024</option>
+      <option  data-month="<%=month%>" value="2024-02-29">february-2024</option>
+     </select>
+
+<br>
+<br>
+<br>
+<br>
+   <table>
+    <tr><th>student_id</th>
+        <th>firstname</th>
+        <th>lastname</th>
+        <th>Month</th>
+        <th>No of days present</th>
+        <th>percentage</th>
+       
+    </tr>
+
+   Report of : <%= month%> month
+    <% data.forEach(entry=>{ %>
+        <tr>
+            <td><%= entry.stdentId%></td>
+         <td><%= entry.firstname%></td>
+         <td><%= entry.lastname %> </td>
+         <td><%=month%></td>
+         <td><%= entry.total_days%></td>
+         
+        <td>  <%=(((entry.total_days)/days)*100).toFixed(2)%>%</td>
+      
+      </tr> 
+     <%  }) %>
+   
+   </table>
+
+   <nav>
+    <ul class="pagination">
+      <li class="page-item"><a  class="page-link" href="/students?select=<%=select%>&page=1"><<</a></li>
+      <% if( hasPreviousPage) { %>
+
+        <li class="page-item"><a  class="page-link" href="/students?page=<%= previousPage%>&select=<%=select%>"><</a></li>
+        <% } else {%>
+          <li class="page-item disabled"><span class="page-link"><</span></li>
+          <% } %>
+          <li class="page-item"><%=currentPage%></li>
+          <% if(hasNextPage){%>
+            <li class="page-item">
+              <a href="/students?page=<%=nextPage%>&select=<%=select%>" class="page-link">></a>
+            </li>
+            <% } else { %>
+              <li class="page-item disabled">
+                <span class="page-link">></span>
+              </li>
+              <% }%>
+              <li class="page-item">
+                <a href="/students?page=<%=lastIndex%>&select=<%=select%>" class="page-link">>></a>
+              </li>
+    </ul>
+   </nav>
+
+  
+</body>
+<script>
+  let select=document.getElementById("select");
+  let selects=select.options;
+  select.addEventListener("change",function (){
+    window.location.href=window.location.pathname+ `?page=1&select=${select.value}`
+  })
+  console.log(selects);
+  for(let i=0;i<selects.length;i++){
+    if(Number(selects[i].value.split("-")[1])==selects[i].dataset.month){
+      console.log(selects[i].dataset.month);
+      selects[i].selected=true;
+    }
+  }
+</script>
+</html>
+

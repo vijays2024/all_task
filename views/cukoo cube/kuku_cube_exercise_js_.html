@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vijay solanki </title>
+    <style>
+        body{
+      background-color: brown;
+        }
+        td{
+            width:40px;
+            height:40px;
+            background-color:blue;
+            opacity: 1;
+        }
+        table{
+            text-align: center;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: auto;
+        }
+        .lightColor{
+            background-color: lightblue;
+        }
+        .newLightColor{
+            opacity:0.3;
+        }
+    #starting{
+        height: 20px;
+        width:20px;
+        background-color: greenyellow;
+    }
+    </style>
+</head>
+<body >
+    <h2 style="margin: 0 auto;width:50%">vijaykumar solanki 24DEV081 kukucube</h2>
+    <h2 id="timer">10</h2>
+    <div style ="position:fixed;left:10px;top:10px;">
+        <span id="score">0</span>
+    </div>
+     <p> click below button to start & pause</p>
+    <button id="starting" onclick="start(this)" value="start" style="width: 50px;position: fixed;color: black;"></button>
+ <table border="1" id="main"> 
+    
+        <tr>
+        <td ></td>
+        <td ></td></tr>
+        <tr >
+        <td class="lightColor"></td>
+        <td ></td>
+       </tr>
+        </table>
+       
+      
+    
+   
+    </table>
+    <script>
+        
+        let clickCount=0;
+        let count=0;
+        let count2;
+        let tdElement;
+        let randomtd;
+        let score=0;
+        let dimensions=2;
+        let timeContext=null;
+        const colorArray=['red',"blue","yellow","violet","black","green","maroon","navy","pink","orange"]
+ function createTable(){
+if(clickCount%2==0){
+      addcolumnrow();
+        clickCount++;
+        }
+        else{
+removingClass();
+addcolumnrow();
+clickCount+=2;
+    }
+     }   
+    // console.log(randomtd)
+        
+  // arr[randomNumber].classList.add("lightColor");
+
+      randomtd=randomNumber();
+  
+    count2=randomtd;
+     // var clickable=document.getElementsByClassName("light");
+    //    var lightbutton=clickable[0];
+    // lightbutton.addEventListener('click',createTable);
+    
+   document.getElementsByTagName('table')[0]
+//    .addEventListener("click",myfunction);
+//    function myfunction(e){
+//     if(e.target.classList[0]=="lightColor"){
+//         score++;
+//         dimensions++;
+//      createTable();
+//      }
+//  else   if(e.target.classList[0]=='newLightColor'){
+//        score++;
+//         dimensions++;
+//         createTable();
+//      }
+//     else{
+//        document.getElementById('score').innerText=score;
+//     }
+//    }
+//e.target.style.opacity
+
+
+function evalute(e){
+    if(e.target.classList[0]=="lightColor"){
+        score++;
+        dimensions++;
+        createTable();
+
+    }
+    else if(e.target.classList[0]=='newLightColor'){
+        score++;
+        dimensions++;
+     createTable();
+    }
+    else 
+    {
+        alert(`You Loose\n score :${score}`)
+        window.location.reload()
+    }
+    document.getElementById('score').innerText=score;
+}
+function addcolumnrow(){
+
+// console.log(event)
+function randomColor(){
+        return Math.floor(Math.random()*10);
+      }
+var num=randomColor();
+document.querySelectorAll("tr").forEach((tr)=>{
+   let td=document.createElement("td");
+   tr.appendChild(td);
+})
+
+document.querySelector('table').appendChild(document.querySelector("tr").cloneNode("true"))
+const arr=document.getElementsByTagName('td');
+for(let i=0;i<arr.length;i++)
+{
+   arr[i].style.backgroundColor=colorArray[num];
+}let tdNumber=document.querySelectorAll("td").length;
+count2=randomNumber(tdNumber)
+
+tdElement=arr[count2]
+
+arr[count2].setAttribute("class","newLightColor");
+
+}   
+function removingClass(){
+
+tdElement.classList.remove("newLightColor");
+
+
+      }  
+function randomNumber(count){
+        return Math.floor(Math.random()*count)
+    }
+
+    
+    // document.querySelectorAll('td').forEach((td)=>{
+        // td.addEventListener("click",evalute)
+        // })
+            
+
+    //  document.querySelectorAll('td').forEach((td)=>{
+        // td.addEventListener("click",evalute)
+        // }
+   function start(ele){
+    if(!+ele.value){
+    document.getElementsByTagName('table')[0].addEventListener("click",evalute);
+        timeContext=setInterval(()=>{
+            document.getElementById('timer').innerText= +document.getElementById('timer').innerText-1;
+            if(+document.getElementById('timer').innerText==0){
+                alert(`Timeout\n score :${score}`);
+                clearInterval(timeContext);
+                window.location.reload();
+            }
+        },1000);
+        ele.innerText="pause";
+        ele.value="1";
+
+    }
+    else{
+        document.querySelectorAll('td').forEach((td)=>{
+            td.removeEventListener('click',evalute);
+        })
+        clearInterval(timeContext);
+        ele.innerHTML="start";
+        ele.value="0";
+        
+    }
+   }
+    
+    </script>
+</body>
+</html>

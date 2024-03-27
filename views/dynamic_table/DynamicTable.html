@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tableEvent</title>
+    <style>
+    td{
+        height:50px;
+        width:50px;
+    }
+tr:nth-of-type(even) td:nth-of-type(even),tr:nth-of-type(odd) td:nth-of-type(odd){
+    background-color: aquamarine;
+}
+    </style>
+</head>
+<body>
+    <h1>vijay solanki   24DEV081</h1>
+    <input type="button" id="add1 "value="Add column" onclick="addcolumn()" >
+    <input type="button" id="add2 "value="remove column"  onclick="removecolumn()">
+    <table border="1" id="main"> 
+    <tr>
+        <td></td>
+    <td></td></tr>
+    <tr><td></td>
+    <td></td></tr>
+    </table>
+    <input type="button" id="add3 "value="Add row" onclick="addrow()">
+    <input type="button" id="add4 "value="remove row" onclick="removerow()" >
+
+
+
+    <script>
+        function addcolumn(){
+       
+document.querySelectorAll("tr").forEach((tr)=>{
+    let td=document.createElement("td");
+    tr.appendChild(td);
+})
+}
+function addrow() {
+   document.querySelector('table').appendChild(document.querySelector("tr").cloneNode("true"))
+}
+function removecolumn(){
+   if(document.querySelectorAll("tr")[0].childElementCount>2){
+    document.querySelectorAll("tr").forEach((tr)=>{
+        tr.removeChild(tr.lastChild);
+    })
+   }
+}
+function removerow(){
+    if(document.querySelectorAll("td").length>4){
+        document.querySelector("table").removeChild(document.querySelector("table").lastChild);
+    }
+}
+
+    </script>
+</body>
+</html>

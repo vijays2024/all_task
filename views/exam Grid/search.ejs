@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result</title>
+    <style>
+       .button{
+        border-style: none;
+       }
+       .filter-tables{
+        display: none;
+        
+        margin: auto;
+        }
+      
+
+tr,td,th{
+    border:1px solid black;
+}        
+        .pagination{
+  display: flex;
+  gap:20px;
+  justify-content: center;
+}
+.page-link{
+  text-decoration: none;
+}
+.page-item{
+  text-decoration: none;
+  list-style: none;
+  font-size: 30px;
+}
+   
+    </style>
+</head>
+<body>
+    <h1>Student Result</h1>
+    <table border ="1" cellpadding="5">
+        <tr>
+            <td><input type="number" id="studentId" name="studentId" placeholder="Enter Id of student"><br></td>
+            <td>
+                <input type = 'button' style='width:100%; height:100%;' onclick="redirectToReport()" value='Filter'/>
+            </td>
+        </tr>
+    </table>
+    <p style = "text-decoration: underline;" onclick="toggleFilters()">Show more Filters...</p>
+    <form action="/postdata" method="post">
+        <div class="filter-tables">
+            <table border ="1" cellpadding="5">
+                <tr>
+                    <td><input type="text" id="fname" name="firstname" placeholder="By Student Name"><br></td>
+                </tr>
+            </table>
+            <table border ="1" cellpadding="5">
+                <tr>
+                    <td><input type="number" id="prilim" name="prilim" placeholder="By Prilim Marks"><br></td>
+                </tr>
+            </table>
+            <table border ="1" cellpadding="5">
+                <tr>
+                    <td><input type="number" id="terminal" name="terminal" placeholder="By Terminal Marks"><br></td> 
+                </tr>
+               
+            </table>
+            <table border ="1" cellpadding="5">
+                <tr>
+                    <td><input type="number" id="final" name="final" placeholder="By Final Marks"><br></td>
+                </tr>
+            </table>
+            <table border ="1" cellpadding="5">
+                <tr>
+                    <td><input type="number" id="total" name="total" placeholder="By Total Marks"><br></td>
+                </tr>
+            </table>
+             <label for="and1">AND</label>
+            <input type="radio" name="option1" id="and1" value="and">
+            <label for="or1">OR</label>
+            <input type="radio" name="option1" id="or1" value="or">
+            <td>
+                <input type ='submit' style='width:100px; height:30px; margin-top: 10px;'  value='Filter'/>
+            </td>
+        </div>
+    </form>
+    
+    
+    <br>
+    <table border ="1" cellpadding="5">
+        <tr>
+            <th rowspan="2">
+                Student Name
+            </th>
+            <th colspan = "2">
+                Prelim
+            </th>
+            <th colspan = "2">
+                Terminal
+            </th>
+            <th colspan = "2">
+                Final
+            </th>
+            <th rowspan="2">
+                Total (out of 1200)
+            </th>
+                <th >
+                Click to View Report Card
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Practical Total
+            </td>
+            <td>
+                Theory Total
+            </td>
+            <td>
+                Practical Total
+            </td>
+            <td>
+                Theory Total
+            </td>
+            <td>
+                Practical Total
+            </td>
+            <td>
+                Theory Total
+            </td>
+        </tr>
+        <%results.forEach((result)=>{ %>
+            <tr>
+                <td>
+                    <%=result.firstname %>
+                </td>
+                <td>
+                    <%=result.total_prelim_practical_marks %>
+                </td>
+                <td>
+                    <%=result.total_prelim_theory_marks %>
+                </td>
+                <td>
+                    <%=result.total_terminal_practical_marks %>
+                </td>
+                <td>
+                    <%=result.total_terminal_theory_marks %>
+                </td>
+                <td>
+                    <%=result.total_final_practical_marks %>
+                </td>
+                <td>
+                    <%=result.total_final_theory_marks %>
+                </td>
+     
+                <td><%= Number(result.total_prelim_practical_marks)+  Number(result.total_prelim_theory_marks)+Number(result.total_terminal_practical_marks)+  Number(result.total_terminal_theory_marks)
+                    +Number(result.total_final_practical_marks)+  Number(result.total_final_theory_marks)%></td>
+                <td>
+                    <a href="/results/<%=result.stdentId%>" target="_blank" >View Report</a>
+                </td>
+            </tr>
+       <% }) %>
+    </table>
+    <br>
+    <nav>
+        <ul class="pagination">
+          <li class="page-item"><a  class="page-link" href="/results?&page=1"><<</a></li>
+          <% if( hasPreviousPage) { %>
+    
+            <li class="page-item"><a  class="page-link" href="/results?page=<%= previousPage%>"><</a></li>
+            <% } else {%>
+              <li class="page-item disabled"><span class="page-link"><</span></li>
+              <% } %>
+              <li class="page-item"><%=currentPage%></li>
+              <% if(hasNextPage){%>
+                <li class="page-item">
+                  <a href="/results?page=<%=nextPage%>" class="page-link">></a>
+                </li>
+                <% } else { %>
+                  <li class="page-item disabled">
+                    <span class="page-link">></span>
+                  </li>
+                  <% }%>
+                  <li class="page-item">
+                    <a href="/results?page=<%=lastIndex%>" class="page-link">>></a>
+                  </li>
+        </ul>
+       </nav>
+</body>
+<script>
+    function redirectToReport(){
+        var userInput = document.getElementById('studentId').value;
+        if(userInput !== ""){
+            window.location.href = "/results/" + userInput;
+        }else{
+            alert("Please Enter Id ");
+        }
+    }
+    function toggleFilters(){
+        var filterTables = document.querySelector('.filter-tables');
+        filterTables.style.display = filterTables.style.display === 'none' ? 'block' : 'none'
+    }
+</script>
+</html>
