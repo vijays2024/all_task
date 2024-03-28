@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table,td,th{
+      border: 1px solid black;
+    }
+    .disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
+}
+div{
+  display: flex;
+  gap:10px;
+}
+
+.pagination{
+  display: flex;
+  gap:20px;
+  justify-content: center;
+}
+.page-link{
+  text-decoration: none;
+}
+.page-item{
+  text-decoration: none;
+  list-style: none;
+  font-size: 30px;
+}
+li{
+  list-style: none;
+}
+a{
+  text-decoration: none;
+}
+  </style>
+</head>
+
+<body>
+
+ 
+  <table>
+    <tr>
+
+    <th><div><a href="/pagination?sort=firstname"><</a><a href="/pagination?sort=firstname">firstname</a><a href="/pagination?sort=firstname&pages=1&sortOrder=DESC">></a></div></th>
+    <th><div><a href="/pagination?sort=middlename"><</a><a href="/pagination?sort=middlename">middlename</a><a href="/pagination?sort=middlename&pages=1 &sortOrder=DESC">></a></div></th>
+      <th><div><a href="/pagination?sort=DOB"><</a><a href="/pagination?sort=DOB ">DOB</a><a href="/pagination?sort=DOB&pages=1 &sortOrder=DESC">></a></div></th>
+      <th><div><a href="/pagination?sort=contactNum"><</a> <a href="/pagination?sort=contactNum">contactNum</a><a href="/pagination?sort=contactNum&pages=1 &sortOrder=DESC">></a></div></th>
+   <th><div><a href="/pagination?sort=contactNum"><</a><a href="/pagination?sort=emailId">emailId</a><a href="/pagination?sort=emailId&pages=1 &sortOrder=DESC">></a></div></th>
+    <th><div><a href="/pagination?sort=city"><</a><a href="/pagination?sort=city">city</a><a href="/pagination?sort=city&pages=1 &sortOrder=DESC">></a></div></th>
+    
+     <th><div><a href="/pagination?sort=country"><</a><a href="/pagination?sort=country">country</a><a href="/pagination?sort=country&pages=1 &sortOrder=DESC">></a></div></th>
+    <th><div><a href="/pagination?sort=zipcode`"><</a><a href="/pagination?sort=zipcode">zipcode</a><a href="/pagination?sort=zipcode&pages=1 &sortOrder=DESC">></a></div></th>
+  
+
+    </tr>
+  
+    <% data.forEach(entry=>{ %>
+       <tr>
+        <td><%= entry.firstname%></td>
+        <td><%= entry.middlename%> </td>
+        
+        <td><%= entry.DOB %> </td>
+        <td><%= entry.contactNum%> </td>
+        <td><%= entry.emailId%> </td>
+    
+        <td><%= entry.city %> </td>
+       
+        <td><%= entry.country %> </td>
+        <td><%= entry.zipcode %> </td>
+       
+       </tr> 
+    <%  }) %>
+  </table>
+
+   
+   <nav>
+    <ul class="pagination">
+      <li class="page-item"><a  class="page-link" href="/pagination?pages=1"><<</a></li>
+      <% if( hasPreviousPage) { %>
+
+        <li class="page-item"><a  class="page-link" href="/pagination?pages=<%= previousPage%>&sort=<%= sortBy%>&sortOrder=<%=sortOrder%>"><</a></li>
+        <% } else {%>
+          <li class="page-item disabled"><span class="page-link"><</span></li>
+          <% } %>
+          <li class="page-item"><%=currentPage%></li>
+          <% if(hasNextPage){%>
+            <li class="page-item">
+              <a href="/pagination?pages=<%=nextPage%>&sort=<%= sortBy%>&sortOrder=<%=sortOrder%>" class="page-link">></a>
+            </li>
+            <% } else { %>
+              <li class="page-item disabled">
+                <span class="page-link">></span>
+              </li>
+              <% }%>
+              <li class="page-item">
+                <a href="/pagination?pages=<%=lastIndex%> &sort=<%= sortBy%>&sortOrder=<%=sortOrder%>" class="page-link">>></a>
+              </li>
+    </ul>
+   </nav>
+
+
+
+  <script>
+   
+</script>
+</body>
+
+</html>

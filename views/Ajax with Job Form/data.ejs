@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: darkslategray;
+        }
+        tr,td,th{
+            border: 1px solid black;
+            color: white;
+        }
+        th{
+            color:bisque;
+        }
+        a{
+            list-style: none;
+            text-decoration: none;
+          
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>firstname</th>
+            <th> Last name</th>
+            <th> designation</th>
+            <th>email</th>
+            <th>contact</th>
+            <th> gender</th>
+            <th>city</th>
+            <th>state</th>
+            <th>zipcode</th>
+            <th>DOB</th>
+            <th>update</th>
+
+        </tr>
+        <% users.forEach((entry)=> {%>
+            <tr>
+               <td><%=entry.firstname%></td>
+               <td><%=entry.lastname%></td>
+               <td><%=entry.designation%></td>
+               <td><%=entry.email%></td>
+               <td><%=entry.phone%></td>
+               <td><%=entry.gender%></td>
+               
+               <td><%=entry.city%></td>
+               <td><%=entry.state%></td>
+               <td><%=entry.zipcode%></td>
+               <td><%=entry.dob%></td>
+               <td><a href="/form/update/<%=entry.id%>">Edit</a></td>
+            </tr>
+          <%}) %>
+
+    </table>
+    <div style="display: flex;justify-content: center;margin-top: 100px;">
+    <a href="/form" style="font-weight: 400;font-size: large;">Add user</a>
+</div>
+    <script>
+
+    
+    </script>
+</body>
+</html>

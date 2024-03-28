@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+
+    <style>
+        body{
+            background-color: darkslategray;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 90vh;
+        }
+        #ans{
+            position: absolute;
+            bottom: 100px;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            background-color: darkcyan;
+            padding: 20px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        td{
+            text-align: center;
+            padding: 15px;
+        }
+        input{
+            padding: 7px;
+            outline:none;
+            background-color: rgb(166,233,233);
+            border-radius:10px;
+        }
+        .error{
+            color:red;
+            font-size:12px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="/sign_in" method="post" id="form">
+             <table>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="text" name="email" id="email"></td>
+                    <td class="error" id="e_email"> </td>
+                </tr>
+
+                <tr>
+                    <td>password</td>
+                    <td><input type="password" name="password" id="password"></td>
+                    <td class="error" id="e_p"> </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                     <input type="button" value="sign In" onclick="validate()">
+                    </td>
+                </tr>
+
+             </table>
+        </form>
+        <div class="fotgot"><a href="/forgotPassword1">Forget Password?</a></div>
+        <div style="margin-top: 10px;">Create an Account ? <a href="/">sign up</a></div>
+        <div id="ans"></div>
+    </div>
+    <script>
+        async function handleLogin(){
+            let formdata=document.getElementById("form");
+            const details=new FormData(formdata);
+            const params=new URLSearchParams(details);
+            const data=await new Response(params).text()
+            const response=await fetch("/sign_in",{
+                method:"POST",
+                headers:{
+                    "Content-type":"application/x-www-form-urlencoded"
+                },
+                body:data
+            })
+
+            const result=await response.json()
+            document.getElementById("ans").innerHTML=`
+            <h1> ${result.msg}</h1>
+            <div>${result.msg_2}</div>
+            `
+
+        }
+
+        function validate(){
+            var isvalid=true;
+            const password=document.getElementById("password").value;
+            const email=document.getElementById("email").value;
+            if(password===""){
+                document.getElementById("e_p").innerHTML="fill value";
+                isvalid=false;
+            }
+            else if(password.length<8){
+                document.getElementById("e_p").innerHTML="password length must be 8";
+                isvalid=false;
+            }
+            if(email===""){
+              document.getElementById("e_email").innerHTML="fill_value";
+              isvalid=false;
+            }
+            else if(!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)){
+                document.getElementById("e_email").innerHTML="invalid email";
+              isvalid=false;
+            }
+            isvalid && handleLogin()
+        }
+    </script>
+</body>
+</html>

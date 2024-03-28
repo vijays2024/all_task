@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: darkslategray;
+        }
+
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height:90vh
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            background-color: darkcyan;
+            padding:20px;
+            border-radius:10px;
+            position: relative;
+        }
+        #thanks{
+            position: absolute;
+            bottom:100px;
+        }
+        td{
+            text-align: center;
+            padding: 15px;
+        }
+        input{
+            padding: 7px;
+            outline:none;
+            background-color: rgb(166,233,233);
+            border-radius:10px;
+        }
+
+
+    </style>
+</head>
+<body>
+  <div class="container">
+   <form id="form" method="post">
+    <table>
+
+        <tr>
+            <td>First Name</td>
+            <td><input type="text" name="fname" id="fname"></td>
+            <td class="error" id="e_fname"></td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td><input type="text" name="lname" id="lname"></td>
+            <td class="error" id="e_lname"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" name="email" id="email"></td>
+            <td class="error" id="e_email"></td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <td ><input type="button" name="sign up" value="sign up"  onclick="validate()"></td>
+         </tr>
+    </table>
+   </form>
+   <div style="margin-top: 10px;">Already Regitsrated? <a href="/sign_in">sign-in</a></div>
+   <div id="thanks"></div>
+
+</div>
+
+<script>
+    async function handleSubmit(){
+        let formdata=document.getElementById("form");
+        const details=new FormData(formdata);
+        const params=new URLSearchParams(details);
+        const data=await new Response(params).text();
+        console.log(data);
+        const response=await fetch("/sign_up",{
+            method:"post",
+            headers:{
+                "Content-type":"application/x-www-form-urlencoded"
+            },
+            body:data
+        })
+        const result=await response.json();
+        if(result.msg)
+        document.getElementById("e_email").innerHTML="invalid Email"
+    else{
+        document.getElementById("thanks").innerHTML=`
+        <h1> Thanks You for Registration </h1>
+        <div> Link to activate <a href=/password/?id=${result.id}&access_key=${result.access_key}&salt=${result.salt}> 
+            /password/?id=${result.id}&access_key=${result.access_key}&salt=${result.salt}</a> </div>
+        `;
+    }
+    }
+
+
+    function validate(){
+        var isvalid=true;
+        const fname=document.getElementById("fname").value;
+        const lname=document.getElementById("lname").value;
+        const email=document.getElementById("email").value;
+        if(fname===""){
+            document.getElementById("e_fname").innerHTML="fill value";
+            isvalid=false;
+
+        }
+        else if(!/^[a-zA-Z\s]*$/.test(fname)){
+            document.getElementById("e_fname").innerHTML="invalid value";
+            isvalid=false;
+        }
+        if(lname===""){
+            document.getElementById("e_lname").innerHTML="fill value";
+            isvalid=false;
+
+        }
+        else if(!/^[a-zA-Z\s]*$/.test(lname)){
+            document.getElementById("e_lname").innerHTML="invalid value";
+            isvalid=false;
+        }
+        if(email===""){
+            document.getElementById("e_email").innerHTML="fill value";
+            isvalid=false;
+
+        }
+        else if(!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)){
+            document.getElementById("e_email").innerHTML="invalid value";
+            isvalid=false;
+        }
+      isvalid&& handleSubmit()
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        legend {
+            background-color: gray;
+            color: white;
+            padding: 5px 10px;
+        }
+
+        .education {
+
+            background-color: #eeeeee;
+              max-width: 1080px;
+        }
+
+      
+    </style>
+</head>
+
+<body>
+    <center>
+        <h1>JOB APPLICATION FORM</h1>
+    </center>
+
+    <form name="form" id="form1" action="/update" method="post" >
+
+    <div class="education">
+        <fieldset>
+            <legend>Personal Details</legend>
+            <input type="hidden" name="idb" id="idb" value="<%= data1 ? data1.id : '' %>"><br>
+            First Name <input type="text" name="fname" id="fname" autofocus value="<%= data1 ? data1.firstname : '' %>">
+            <p style="display: inline; visibility: hidden;" id="fnameerror">error</p><br><br>
+            Last Name <input type="text" name="lname" id="lname" value="<%= data1 ? data1.lastname : '' %>">
+            <p style="display: inline; visibility: hidden;" id="lnameerror">error</p><br><br>
+            Designation <input type="text" name="desig" id="desig" value="<%= data1 ? data1.designation : '' %>">
+            <p style="display: inline; visibility: hidden;" id="desigerror">error</p><br><br>
+            Email <input type="text" name="emailid" id="emailid" value="<%= data1 ? data1.email : '' %>">
+            <p style="display: inline; visibility: hidden;" id="emailiderror">error</p><br><br>
+            Phone Number <input type="tel" name="Pnumber" id="Pnumber" value="<%= data1 ? data1.phone : '' %>">
+            <p style="display: inline; visibility: hidden;" id="Pnumbererror">error</p><br><br>
+            Gender<br>
+            <input type="radio" id="male" name="gender" value="male" <% if(data1 && data1.gender==='male' ) {%> checked
+            <%} %>>
+                <label for="male">Male</label><br>
+                <input type="radio" id="female" name="gender" value="female" <%if (data1 && data1.gender==='female' )
+                    {%> checked <%} %>>
+                    <label for="female">Female</label><br>
+                    <input type="radio" id="others" name="gender" value="others" <%if (data1 && data1.gender==='others'
+                        ) {%> checked <%} %>>
+                        <label for="others">Others</label>
+                        <p style="display: inline; visibility: hidden;" id="gendererror">error</p><br><br>
+                        <label for="status"> Relationship Status</label>
+                        <select name="statusRelation" id="statusRelation">
+                            <option value="select_relation" <% if(data1 && data1.relation==='select_relation' ){ %>
+                                selected <%} %>>Select Relation</option>
+                            <option value="Married" <% if(data1 && data1.relation==='Married' ){ %> selected <%} %>
+                                    >Married</option>
+                            <option value="Unmarried" <% if(data1 && data1.relation==='Unmarried' ){ %> selected <%} %>
+                                    >Unmarried</option>
+                        </select>
+                        <p style="display: inline; visibility: hidden;" id="relationerror">error</p><br><br>
+                        Address1 <input rows="4" cols="30" id="add1" name="add1" value="<%= data1 ? data1.add1 : '' %>">
+                        <p style="display: inline; visibility: hidden;" id="addresserror">error</p><br><br>
+                        Address2 <input rows="4" cols="30" name="add2" id="add2"
+                            value="<%= data1 ? data1.add2 : '' %>"><br><br>
+                        City <input type="text" name="city" id="city" value="<%= data1 ? data1.city : '' %>">
+                        <p style="display: inline; visibility: hidden;" id="cityerror">error</p><br><br>
+                        <label for="state">State</label>
+                        <select name="state" id="state">
+                            <option value="select_state" <% if(data1 && data1.state==='select_state' ){ %> selected <%}
+                                    %>>Select State</option>
+                            <option value="Gujarat" <% if(data1 && data1.state==='Gujarat' ){ %> selected <%} %>>Gujarat
+                            </option>
+                            <option value="Maharashta" <% if(data1 && data1.state==='Maharashtra' ){ %> selected <%} %>
+                                    >Maharashtra</option>
+                            <option value="Mumbai" <% if(data1 && data1.state==='Mumbai' ){ %> selected <%} %>>Mumbai
+                            </option>
+                            <option value="Delhi" <% if(data1 && data1.state==='Delhi' ){ %> selected <%} %>>Delhi
+                            </option>
+                        </select>
+                        <p style="display: inline; visibility: hidden;" id="stateerror">error</p><br><br>
+                        Zipcode <input type="text" id="zipcode" name="zipcode"
+                            value="<%= data1 ? data1.zipcode : '' %>">
+                        <p style="display: inline; visibility: hidden;" id="zipcodeerror">error</p><br><br>
+                        Date Of Birth <input type="text" id="dob" name="dob" placeholder="yyyy-mm-dd"
+                            value="<%= data1 ? data1.dob : '' %>">
+                        <p style="display: inline; visibility: hidden;" id="doberror">error</p><br><br>
+        </fieldset>
+    </div>
+    <br><br><br>
+
+    <div class="education educationdetails">
+        <input type="button" value="+" onclick="addrow('educationdetails','ed')" style="display: inline-block;width:4%">
+        <input type="button" value="-" onclick="deleterow('educationdetails','ed')" style="display: inline-block;width:4%">
+        <fieldset>
+            <legend>Education Details</legend>
+           
+            <div class="ed">
+               <input type="hidden" name="eid" value="<%= data && data[0] ? data[0].id : '' %>"><br>
+                <label for="boardname">name of board</label>
+                <span name="boardnameerror"></span>
+                <select name="boardname" id="boardname">
+                    <option value="select_course" <% if(data && data[0] && data[0].boardname==='select_course' ){ %>
+                        selected <%} %>>Select Board</option>
+                    <option value="ssc" <% if(data &&data[0] && data[0].boardname==='ssc' ){ %> selected <%} %>>SSC
+                    </option>
+                    <option value="hsc" <% if(data &&data[0] && data[0].boardname==='hsc' ){ %> selected <%} %>>HSC
+                    </option>
+                    <option value="bachelor" <% if(data &&data[0] && data[0].boardname==='bachelor' ){ %> selected <%}
+                            %>>Bachelor Degree</option>
+                    <option value="master" <% if(data &&data[0] && data[0].boardname==='master' ){ %> selected <%} %>
+                            >master Degree</option>
+                </select>
+
+                Passing Year <span name="passingyearerror"></span>
+                <input type="text" name="passingyear" value="<%=data && data[0] ? data[0].passingyear : '' %>">
+
+                Percentage <span name="percentageerror"></span>
+                <input type="text" name="percentage" value="<%=data && data[0] ? data[0].percentage : '' %>">
+
+            </div>
+            <div class="ed">
+               <input type="hidden" name="eid" value="<%= data && data[1] ? data[1].id : '' %>"><br>
+                <label for="boardname">name of board</label>
+                <span name="boardnameerror"></span>
+                <select name="boardname" id="HBoardName">
+                    <option value="select_course" <% if(data && data[1] && data[1].boardname==='select_course' ){ %>
+                        selected <%} %>>Select Board</option>
+                    <option value="ssc" <% if(data &&data[1] && data[1].boardname==='ssc' ){ %> selected <%} %>>SSC
+                    </option>
+                    <option value="hsc" <% if(data &&data[1] && data[1].boardname==='hsc' ){ %> selected <%} %>>HSC
+                    </option>
+                    <option value="bachelor" <% if(data &&data[1] && data[1].boardname==='bachelor' ){ %> selected <%}
+                            %>>Bachelor Degree</option>
+                    <option value="master" <% if(data &&data[1] && data[1].boardname==='master' ){ %> selected <%} %>
+                            >master Degree</option>
+                </select>
+                Passing Year <span name="passingyearerror"></span>
+                <input type="text" name="passingyear" value="<%=data && data[1] ? data[1].passingyear : '' %>">
+
+                Percentage <span name="percentageerror"></span>
+                <input type="text" name="percentage" value="<%=data && data[1] ? data[1].percentage : '' %>">
+            </div>
+            <div class="ed">
+            <input type="hidden" name="eid" value="<%= data && data[2] ? data[2].id : '' %>"><br>
+                <label for="boardname">name of board</label>
+                <span name="boardnameerror"></span>
+                <select name="boardname" id="bcourse">
+                    <option value="select_course" <% if(data && data[2] && data[2].boardname==='select_course' ){ %>
+                        selected <%} %>>Select Board</option>
+                    <option value="ssc" <% if(data &&data[2] && data[2].boardname==='ssc' ){ %> selected <%} %>>SSC
+                    </option>
+                    <option value="hsc" <% if(data &&data[2] && data[2].boardname==='hsc' ){ %> selected <%} %>>HSC
+                    </option>
+                    <option value="bachelor" <% if(data &&data[2] && data[2].boardname==='bachelor' ){ %> selected <%}
+                            %>>Bachelor Degree</option>
+                    <option value="master" <% if(data &&data[2] && data[2].boardname==='master' ){ %> selected <%} %>
+                            >master Degree</option>
+                </select>
+                Passing Year <span name="passingyearerror"></span>
+                <input type="text" name="passingyear" value="<%=data && data[2] ? data[2].passingyear : '' %>">
+
+                Percentage <span name="percentageerror"></span>
+                <input type="text" name="percentage" value="<%=data && data[2] ? data[2].percentage : '' %>">
+            </div>
+            <div class="ed">
+                 <input type="hidden" name="eid" value="<%= data && data[3] ? data[3].id : '' %>"><br>
+                <label for="boardname">name of board</label>
+                <span name="boardnameerror"></span>
+                <select name="boardname" id="mcourse">
+                    <option value="select_course" <% if(data && data[3] && data[3].boardname==='select_course' ){ %>
+                        selected <%} %>>Select Board</option>
+                    <option value="ssc" <% if(data &&data[3] && data[3].boardname==='ssc' ){ %> selected <%} %>>SSC
+                    </option>
+                    <option value="hsc" <% if(data &&data[3] && data[3].boardname==='hsc' ){ %> selected <%} %>>HSC
+                    </option>
+                    <option value="bachelor" <% if(data &&data[3] && data[3].boardname==='bachelor' ){ %> selected <%}
+                            %>>Bachelor Degree</option>
+                    <option value="master" <% if(data &&data[3] && data[3].boardname==='master' ){ %> selected <%} %>
+                            >master Degree</option>
+                </select>
+                Passing Year <span name="passingyearerror"></span>
+                <input type="text" name="passingyear" value="<%=data && data[3] ? data[3].passingyear : '' %>">
+
+                Percentage <span name="percentageerror"></span>
+                <input type="text" name="percentage" value="<%=data && data[3] ? data[3].percentage : '' %>">
+
+            </div>
+        </fieldset>
+
+        <br><br><br>
+    </div>
+    <div class="education workdetails">
+        <input type="button" value="+" onclick="addrow('workdetails','work')" style="display: inline-block;width:4%">
+        <input type="button" value="-" onclick="deleterow('workdetails','work')" style="display: inline-block;width:4%">
+        <fieldset>
+            <legend>Work Experience</legend>
+
+          <div class="work">
+             <input type="hidden" name="wid" value="<%= data3 && data3[0] ? data3[0].id : '' %>"><br>
+            Company Name <span name="cnameserror"></span>
+            <input type="text" name="cnames" id="cnames" value="<%= data3 && data3[0] ? data3[0].companyname : '' %>">
+
+            Designation <span name="desigerror"></span>
+            <input type="text" name="designations" id="designation1"
+                value="<%=data3 && data3[0] ? data3[0].designation : '' %>">
+
+            From <span name="fromdateserror"></span>
+            <input type="text" name="fromdates" id="fromdates" placeholder="yyyy-mm-dd"
+                value="<%=data3 && data3[0] ? data3[0].fromdate : '' %>">
+
+            To <span name="todateserror"></span>
+            <input type="text" name="todates" id="to1" placeholder="yyyy-mm-dd"
+                value="<%=data3 && data3[0] ? data3[0].todate : '' %>">
+                </div>
+            <br><br>
+        <div class="work">
+             <input type="hidden" name="wid" value="<%= data3 && data3[1] ? data3[1].id : '' %>"><br>
+            Company Name <span name="cnameserror"></span>
+            <input type="text" name="cnames" id="cname2" value="<%=data3 && data3[1] ? data3[1].companyname : '' %>">
+
+            Designation <span name="desigerror"></span>
+            <input type="text" name="designations" id="designation2"
+                value="<%= data3 &&data3[1] ? data3[1].designation : '' %>">
+
+            From <span name="fromdateserror"></span>
+            <input type="text" name="fromdates" id="from2" placeholder="yyyy-mm-dd"
+                value="<%=data3 && data3[1] ? data3[1].fromdate : '' %>">
+
+            To <span name="todateserror"></span>
+            <input type="text" name="todates" id="to2" placeholder="yyyy-mm-dd"
+                value="<%=data3 && data3[1] ? data3[1].todate : '' %>">
+            </div>
+        <div class="work">
+            <input type="hidden" name="wid" value="<%= data3 && data3[2] ? data3[2].id : '' %>"><br>
+            Company Name <span name="cnameserror"></span>
+            <input type="text" name="cnames" id="cname3" value="<%= data3 &&data3[2] ? data3[2].companyname : '' %>">
+
+            Designation <span name="desigerror"></span>
+            <input type="text" name="designations" id="designation3"
+                value="<%= data3 &&data3[2] ? data3[2].designation : '' %>">
+
+            From <span name="fromdateserror"></span>
+            <input type="text" name="fromdates" id="from3" placeholder="yyyy-mm-dd"
+                value="<%=data3 && data3[2] ? data3[2].fromdate : '' %>">
+
+            To <span name="todateserror"></span>
+            <input type="text" name="todates" id="to3" placeholder="yyyy-mm-dd"
+                value="<%=data3 && data3[2] ? data3[2].todate : '' %>">
+            </div>
+            <br><br>
+
+        </fieldset>
+        <br><br><br>
+    </div>
+    <div class="education">
+        <fieldset>
+            <legend>Language Known</legend>
+       <input type="hidden" name="lid" value="<%= data4 && data4[j] && data4[j].language==='english' ? data4[j].id : '' %>"><br>
+            <input type="checkbox" id="englishCheckbox" name="english" value="english" <% if(data4 && data4[j] &&
+                data4[j].language==='english' ) {%> checked <% } %> onchange="validateCheckbox()">
+                <label for="englishCheckbox">English</label>
+                <input type="checkbox" id="Read1" name="Read1" value="1" <% if(data4 &&data4[j] &&
+                    data4[j].language==='english' && data4[j].canread==='1' ) {%> checked <% } %> disabled>
+                    <label for="Read1">Read</label>
+                    <input type="checkbox" id="Write1" name="Write1" value="1" <% if(data4 &&data4[j] &&
+                        data4[j].language==='english' && data4[j].canwrite==='1' ) { %> checked <% } %> disabled>
+                        <label for="Write1">Write</label>
+                        <input type="checkbox" id="Speak1" name="Speak1" value="1" <% if(data4 &&data4[j] &&
+                            data4[j].language==='english' && data4[j].canspeak==='1' ) {%> checked <% } %> disabled>
+                            <label for="Speak1">Speak</label><br><br>
+                            <% if(data4 &&data4[j] && data4[j].language==='english' ) { j++ %>
+                                <% } %>
+
+                                <input type="hidden" name="lid" value="<%= data4 && data4[j] && data4[j].language==='hindi' ? data4[j].id : '' %>"><br>
+                                    <input type="checkbox" id="hindiCheckbox" name="hindi" value="hindi" <% if(data4 &&
+                                        data4[j] && data4[j].language==='hindi' ) { %> checked <% } %>
+                                        onchange="validateCheckbox()">
+                                        <label for="hindiCheckbox">Hindi</label>
+                                        <input type="checkbox" id="Read2" name="Read2" value="1" <% if( data4 &&
+                                            data4[j] && data4[j].language==='hindi' && data4[j].canread==='1' ) {%>
+                                        checked <% } %> disabled>
+                                            <label for="Read2">Read</label>
+                                            <input type="checkbox" id="Write2" name="Write2" value="1" <% if( data4 &&
+                                                data4[j] && data4[j].language==='hindi' && data4[j].canwrite=='1' )
+                                                {%> checked <% } %> disabled>
+                                                <label for="Write2">Write</label>
+                                                <input type="checkbox" id="Speak2" name="Speak2" value="1" <% if(data4
+                                                    && data4[j] && data4[j].language==='hindi' &&
+                                                    data4[j].canspeak==='1' ) {%> checked <% } %> disabled>
+                                                    <label for="Speak2">Speak</label><br><br>
+                                                    <% if(data4 && data4[j] && data4[j].language==='hindi' ) {j++%>
+                                                        <% } %>
+
+
+                                                        <input type="hidden" name="lid" value="<%= data4 && data4[j] && data4[j].language==='gujarati' ? data4[j].id : '' %>"><br>
+                                                            <input type="checkbox" id="gujaratiCheckbox" name="gujarati"
+                                                                value="gujarati" <% if(data4 && data4[j] &&
+                                                                data4[j].language==='gujarati' ) {%> checked <% } %>
+                                                                onchange="validateCheckbox()">
+                                                                <label for="gujaratiCheckbox">Gujarati</label>
+                                                                <input type="checkbox" id="Read3" name="Read3" value="1"
+                                                                    <% if(data4 && data4[j] &&
+                                                                    data4[j].language==='gujarati' &&
+                                                                    data4[j].canread==='1' ) {%> checked <% } %>
+                                                                    disabled>
+                                                                    <label for="Read3">Read</label>
+                                                                    <input type="checkbox" id="Write3" name="Write3"
+                                                                        value="1" <% if(data4 && data4[j] &&
+                                                                        data4[j].language==='gujarati' &&
+                                                                        data4[j].canwrite==='1' ) {%> checked <% } %>
+                                                                        disabled>
+                                                                        <label for="Write3">Write</label>
+                                                                        <input type="checkbox" id="Speak3" name="Speak3"
+                                                                            value="1" <% if(data4 && data4[j] &&
+                                                                            data4[j].language==='gujarati' &&
+                                                                            data4[j].canspeak==='1' ) {%> checked <% }
+                                                                            %> disabled>
+                                                                            <label for="Speak3">Speak</label>
+        </fieldset>
+        <br><br><br>
+    </div>
+
+    <div class="education">
+        <fieldset>
+            <legend>Technologies Known</legend>
+           <input type="hidden" name="tid" value="<%= data6 && data6[i] && data6[i].techname==='php' ? data6[i].id : '' %>"><br>
+            <input type="checkbox" id="phpCheckboxes" name="phpCheck" value="php" <% if( data6 && data6[i] &&
+                data6[i].techname==='php' ) {%> checked <% } %> onchange="validateTechnology()">
+                <label for="phpCheckboxes">PHP</label>
+                <span id="phperror"></span>
+                <input type="radio" name="php" id="beginner1" value="beginner" <%if( data6 && data6[i] &&
+                    data6[i].techname==='php' && data6[i].level==='beginner' ) { %> checked <%} %> disabled>
+                    <label for="beginner1">Beginner</label>
+                    <input type="radio" name="php" id="mid1" value="midiator" <%if( data6 && data6[i] &&
+                        data6[i].techname==='php' && data6[i].level==='midiator' ) { %> checked <%} %> disabled>
+                        <label for="mid1">Midiator</label>
+                        <input type="radio" name="php" id="expert1" value="expert" <%if( data6 && data6[i] &&
+                            data6[i].techname==='php' && data6[i].level==='expert' ) { %> checked <%} %> disabled>
+                            <label for="expert1">Expert</label><br><br>
+                            <% if(data6 && data6[i] && data6[i].techname==='php' ) {i++%>
+                                <% } %>
+
+
+                                <input type="hidden" name="tid" value="<%= data6 && data6[i] && data6[i].techname==='laravel' ? data6[i].id : '' %>"><br>
+                                    <input type="checkbox" id="laravelCheckboxes" name="laravelCheck" value="laravel" <%
+                                        if(data6 && data6[i] && data6[i].techname==='laravel' ) {%> checked <% } %>
+                                        onchange="validateTechnology()">
+                                        <label for="laravelCheckboxes">Laravel</label>
+                                        <span id="laravelerror"></span>
+                                        <input type="radio" name="laravel" id="beginner2" value="beginner" <%if( data6
+                                            && data6[i] && data6[i].techname==='laravel' && data6[i].level==='beginner'
+                                            ) { i++ %> checked <%} %> disabled>
+                                            <label for="beginner2">Beginner</label>
+                                            <input type="radio" name="laravel" id="mid2" value="midiator" <%if( data6 &&
+                                                data6[i] && data6[i].techname==='laravel' &&
+                                                data6[i].level==='midiator' ) { i++ %> checked <%} %> disabled>
+                                                <label for="mid2">Midiator</label>
+                                                <input type="radio" name="laravel" id="expert2" value="expert" <%if(
+                                                    data6 && data6[i] && data6[i].techname==='laravel' &&
+                                                    data6[i].level==='expert' ) {i++%> checked <%} %> disabled>
+                                                    <label for="expert2">Expert</label><br><br>
+                                                    <% if( data6 && data6[i] && data6[i].techname==='laravel' ) {i++%>
+                                                        <% } %>
+
+                                                        <input type="hidden" name="tid" value="<%= data6 && data6[i] && data6[i].techname==='mysql' ? data6[i].id : '' %>"><br>
+                                                            <input type="checkbox" id="mysqlCheckboxes"
+                                                                name="mysqlCheck" value="mysql" <% if( data6 && data6[i]
+                                                                && data6[i].techname==='mysql' ) {%> checked <% } %>
+                                                                onchange="validateTechnology()">
+                                                                <label for="mysqlCheckboxes">MySQL</label>
+                                                                <span id="mysqlerror"></span>
+                                                                <input type="radio" name="mysql" id="beginner3"
+                                                                    value="beginner" <%if( data6 && data6[i] &&
+                                                                    data6[i].techname==='mysql' &&
+                                                                    data6[i].level==='beginner' ) {%> checked <%} %>
+                                                                    disabled>
+                                                                    <label for="beginner3">Beginner</label>
+                                                                    <input type="radio" name="mysql" id="mid3"
+                                                                        value="midiator" <%if( data6 && data6[i] &&
+                                                                        data6[i].techname==='mysql' &&
+                                                                        data6[i].level==='midiator' ) {%> checked <%} %>
+                                                                        disabled>
+                                                                        <label for="mid3">Midiator</label>
+                                                                        <input type="radio" name="mysql" id="expert3"
+                                                                            value="expert" <%if( data6 && data6[i] &&
+                                                                            data6[i].techname==='mysql' &&
+                                                                            data6[i].level==='expert' ) {%> checked <%}
+                                                                            %> disabled>
+                                                                            <label for="expert3">Expert</label><br><br>
+                                                                            <% if(data6 && data6[i] &&
+                                                                                data6[i].techname==='mysql' ) {i++%>
+                                                                                <% } %>
+
+
+                                                       <input type="hidden" name="tid" value="<%= data6 && data6[i] && data6[i].techname==='oracle' ? data6[i].id : '' %>"><br>                              <input type="checkbox"
+                                                                                        id="oracleCheckboxes"
+                                                                                        name="oracleCheck"
+                                                                                        value="oracle" <% if( data6 &&
+                                                                                        data6[i] &&
+                                                                                        data6[i].techname==='oracle' )
+                                                                                        {%> checked <% } %>
+                                                                                        onchange="validateTechnology()">
+                                                                                        <label
+                                                                                            for="oracleCheckboxes">Oracle</label>
+                                                                                        <span id="oracleerror"></span>
+                                                                                        <input type="radio"
+                                                                                            name="oracle" id="beginner4"
+                                                                                            value="beginner" <%if( data6
+                                                                                            && data6[i] &&
+                                                                                            data6[i].techname==='oracle'
+                                                                                            &&
+                                                                                            data6[i].level==='beginner'
+                                                                                            ) {%> checked <%} %>
+                                                                                            disabled>
+                                                                                            <label
+                                                                                                for="beginner4">Beginner</label>
+                                                                                            <input type="radio"
+                                                                                                name="oracle" id="mid4"
+                                                                                                value="midiator" <%if(
+                                                                                                data6 && data6[i] &&
+                                                                                                data6[i].techname==='oracle'
+                                                                                                &&
+                                                                                                data6[i].level==='midiator'
+                                                                                                ) {%> checked <%} %>
+                                                                                                disabled>
+                                                                                                <label
+                                                                                                    for="mid4">Midiator</label>
+                                                                                                <input type="radio"
+                                                                                                    name="oracle"
+                                                                                                    id="expert4"
+                                                                                                    value="expert" <%if(
+                                                                                                    data6 && data6[i] &&
+                                                                                                    data6[i].techname==='oracle'
+                                                                                                    &&
+                                                                                                    data6[i].level==='expert'
+                                                                                                    ) {%> checked <%} %>
+                                                                                                    disabled>
+                                                                                                    <label
+                                                                                                        for="expert4">Expert</label>
+        </fieldset>
+        <br><br>
+
+    </div>
+    <div class="education refdetails">
+        <input type="button" value="+" onclick="addrow('refdetails','ref')" style="display: inline-block;width:4%">
+        <input type="button" value="-" onclick="deleterow('refdetails','ref')" style="display: inline-block;width:4%">
+
+        <fieldset>
+            <legend>Reference Contact</legend>
+            <div class="ref">
+              <input type="hidden" name="rid" value="<%= data5 && data5[0] ? data5[0].id : '' %>"><br>
+            Name <span name="refnameerror"></span>
+            
+            <input type="text" name="refname" id="refname1" value="<%=  data5 && data5[0] ? data5[0].companyname : '' %>">
+
+            Contact Number <span name="refcontacterror"></span>
+            <input type="text" name="refcontact" id="refcontact1"
+                value="<%=  data5 && data5[0] ? data5[0].contactnumber : '' %>">
+            Relation <span name="refrelationerror"></span>
+           
+            <input type="text" name="refrelation" id="refrelation1"
+                value="<%=  data5 && data5[0] ? data5[0].relation : '' %>">
+            </div>
+            <br><br>
+
+            <div class="ref">
+                 <input type="hidden" name="rid" value="<%= data5 && data5[1] ? data5[1].id : '' %>"><br>
+            Name <span name="refnameerror"></span>
+            <input type="text" name="refname" id="refname2" value="<%=  data5 && data5[1] ? data5[1].companyname : '' %>">
+
+            Contact Number <span name="refcontacterror"></span>
+            <input type="text" name="refcontact" id="refcontact2"
+                value="<%=  data5 && data5[1] ? data5[1].contactnumber : '' %>">
+
+            Relation <span name="refrelationerror"></span>
+            <input type="text" name="refrelation" id="refrelation2"
+                value="<%=  data5 && data5[1] ? data5[1].relation : '' %>">
+            </div>
+
+        </fieldset>
+        <br><br><br>
+
+    </div>
+    <div class="education">
+        <fieldset>
+            <legend>Preferences</legend>
+            <input type="hidden" name="pid"  id="pid" value="<%= data7 ? data7.id : '' %>"><br>
+
+            Preferred Location <span id="locationerror"></span>
+            <select id="location" name="location">
+                <option value="select_location" <% if(data7 && data7.preferedlocation==="select_location") { %> selected <%}%> >Select Location</option>
+                <option value="Ahmedabad" <% if(data7 && data7.preferedlocation==="Ahmedabad") { %> selected <%}%>>Ahmedabad</option>
+                <option value="Delhi"  <% if(data7 && data7.preferedlocation==="Delhi") { %> selected <%}%>>Delhi</option>
+                <option value="Mumbai"  <% if(data7 && data7.preferedlocation==="Mumbai") { %> selected <%}%>>Mumbai</option>
+            </select>
+            <br><br>
+            Notice Period <span id="noticeerror"></span>
+            <input type="text" name="noticeP" id="noticeP" value="<%=  data7 ? data7.noticePeriod : '' %>" placeholder="enter in month">
+            <br><br>
+            Expected CTC
+            <span id="expectederror"></span>
+            <input type="text" name="expectedCTC" id="expectedCTC" value="<%=  data7 ? data7.expectedctc : '' %>"  >
+            <br><br>
+            Current CTC
+            <span id="currenterror"></span>
+            <input type="text" name="currentCTC" id="currentCTC" value="<%=  data7 ? data7.currentctc : '' %>"  >
+            <br><br>
+            Department
+            <span id="departmenterror"></span>
+            <select id="department" name="department">
+                <option value="select_department" <% if(data7 && data7.department==="select_department") { %> selected <%}%> >Select Department</option>
+                <option value="development"  <% if(data7 && data7.department==="development") { %> selected <%}%>>Development</option>
+                <option value="design"  <% if(data7 && data7.department==="design") { %> selected <%}%> >Design</option>
+                <option value="marketing" <% if(data7 && data7.department==="marketing") { %> selected <%}%> >Marketing</option>
+            </select>
+            <br><br>
+        </fieldset>
+        <br><br><br>
+
+
+
+    </div>
+    <div class="savedata" style="margin-bottom: 20px;">
+        <h3>save data</h3>
+        <input type="button" value="save" id="save">
+    </div>
+    <div class="buttons" style="display: flex;gap:900px">
+        <input type="button" value="previous" id="previous" onclick="displayblocknone(-1)">
+        <input type="button" value="next" id="next" onclick="displayblocknone(1)">
+    </div>
+
+    <!-- <input type="submit" value="register" >
+        </form> -->
+    <script>
+      
+    
+      function addrow(mainclass,childclass){
+        let mainc=document.getElementsByClassName(mainclass);
+        let childc=document.getElementsByClassName(childclass);
+
+        let clonechild=childc[0].cloneNode(true);
+        mainc[0].appendChild(clonechild);
+      }
+      
+
+      function deleterow(mainclass,childclass){
+        let mainc=document.getElementsByClassName(mainclass);
+        let childc=document.getElementsByClassName(childclass);
+        if(childc.length<=3){
+            return;
+        }
+        else{
+            mainc[0].removeChild(childc[childc.length-1])
+        }
+      }
+
+        let educations = document.getElementsByClassName("education");
+        educations[0].style.display = "block";
+        let previous = document.getElementById("previous");
+        let next = document.getElementById("next");
+        let j = 0;
+        let savedata = document.getElementsByClassName("savedata");
+        savedata[0].style.display = "none";
+        previous.disabled = true;
+        for (let i = 1; i < educations.length; i++) {
+            educations[i].style.display = "none";
+        }
+        function displayblocknone(increment) {
+            let z = validateForm();
+
+            if (z === false) {
+                // next.disabled=true;
+                // previous.disabled=true;
+                return;
+            }
+            else {
+                next.disabled = false;
+                previous.disabled = false;
+            }
+
+            j = j + increment;
+
+            next.disabled = (j === 6);
+            previous.disabled = (j === 0);
+
+            if (j == 6) {
+
+                savedata[0].style.display = "block"
+            }
+            else {
+                savedata[0].style.display = "none"
+            }
+            for (let k = 0; k < educations.length; k++) {
+                if (k == j) {
+                    educations[k].style.display = "block";
+
+                }
+
+                else {
+                    educations[k].style.display = "none";
+                }
+
+            }
+        }
+        let save = document.getElementById("save")
+        save.addEventListener("click", insertusingajax);
+        async function insertusingajax() {
+            //   alert("hello")
+
+            let location = document.getElementById('location').value;
+            let locationerror = document.getElementById('locationerror');
+            let noticeP = document.getElementById('noticeP').value;
+            let noticeerror = document.getElementById('noticeerror');
+            let expectedCTC = document.getElementById('expectedCTC').value;
+            let expectederror = document.getElementById('expectederror');
+            let currentCTC = document.getElementById('currentCTC').value;
+            let currenterror = document.getElementById('currenterror');
+            let department = document.getElementById('department').value;
+            let departmenterror = document.getElementById('departmenterror');
+
+            
+         //educationid
+         let eid=document.getElementsByName('eid');
+         //work detail
+         let wid=document.getElementsByName('wid');
+         //language known
+         let lid=document.getElementsByName('lid');
+         //techid
+         let tid=document.getElementsByName('tid');
+         //referenceid
+
+         let rid=document.getElementsByName('rid');
+
+         //preferences
+        let pid=document.getElementById("pid").value;
+
+
+         function getAllId(idd){
+            let arrid=[];
+         for(let i=0;i<idd.length;i++){
+          arrid.push(idd[i].value);
+         }
+         return arrid;
+         }
+     let eidarr=getAllId(eid);    
+     let widarr=getAllId(wid);
+     let lidarr=getAllId(lid);
+     let tidarr=getAllId(tid)
+     let ridarr=getAllId(rid)
+
+
+
+            if (location === 'select_location') {
+                locationerror.innerHTML = "city is required*";
+
+                return false;
+            }
+
+            if (noticeP.trim() === "") {
+                noticeerror.innerHTML = "Notice Period required*";
+
+                return false;
+            }
+            if (isNaN(noticeP)) {
+                noticeerror.innerHTML = "Invalid Notice Period";
+
+                return false;
+            }
+            if (Number(noticeP) > 12 && Number(noticeP) < 1) {
+                noticeerror.innerHTML = "Invalid Notice Period";
+
+                return false;
+            }
+
+            if (expectedCTC.trim() === "") {
+                expectederror.innerHTML = "Expected CTC required*";
+                return false;
+            }
+            if (isNaN(expectedCTC)) {
+                expectederror.innerHTML = "Invalid Expected CTC*";
+                return false;
+            }
+            if (Number(expectedCTC) > 1000000 || Number(expectedCTC) < 10000) {
+                expectederror.innerHTML = "Invalid Expected CTC*";
+                return false;
+            }
+            if (currentCTC.trim() != "") {
+                if (isNaN(currentCTC)) {
+                    currenterror.innerHTML = "Invalid Current CTC";
+                    return false;
+                }
+                if (Number(currentCTC) > 1000000 || Number(currentCTC) < 10000) {
+                    currenterror.innerHTML = "Invalid Current CTC";
+                    return false;
+                }
+            }
+            if (department === 'select_department') {
+                departmenterror.innerHTML = "department required*";
+
+                departmenterror.style.color = "red";
+                return false;
+            }
+
+            let fname = document.getElementById('fname').value;
+
+            let lname = document.getElementById('lname').value;
+
+            let desig = document.getElementById('desig').value;
+
+            let emailid = document.getElementById('emailid').value;
+
+            let Pnumber = document.getElementById('Pnumber').value;
+
+            let add1 = document.getElementById('add1').value;
+            let add2 = document.getElementById('add2').value;
+            let city = document.getElementById('city').value;
+
+            let state = document.getElementById('state').value;
+
+            let statusRelation = document.getElementById('statusRelation').value;
+            let gender = document.getElementsByName("gender");
+            let zipcode = document.getElementById('zipcode').value;
+            let dob = document.getElementById('dob').value;
+
+            let gendervalue;
+            for (let i = 0; i < gender.length; i++) {
+                if (gender[i].checked === true) {
+                    gendervalue = gender[i].value;
+                    break;
+                }
+            }
+            console.log(gendervalue);
+           //education
+            let boardname = document.getElementsByName("boardname");
+            let passingyear = document.getElementsByName("passingyear");
+            let percentage = document.getElementsByName("percentage");
+            let count = 0;
+            let boardnames = [];
+            let passingyears = [];
+            let percentages = [];
+            for (let i = 0; i < boardname.length; i++) {
+                if (boardname[i].value != "select_course") {
+                    count++;
+                }
+                else {
+                    break;
+                }
+            }
+            let eidfinalarr=[]
+            for (let j = 0; j < count; j++) {
+                boardnames.push(boardname[j].value.trim());
+                passingyears.push(passingyear[j].value.trim());
+                percentages.push(percentage[j].value.trim());
+                eidfinalarr.push(eidarr[j]);
+            }
+
+            //work experiance
+            let countw = 0;
+            let cnames = document.getElementsByName("cnames");
+            let designations = document.getElementsByName("designations");
+            let fromdates = document.getElementsByName("fromdates");
+            let todates = document.getElementsByName("todates");
+            let cnamesarr = [];
+            let designationsarr = [];
+            let fromdatesarr = [];
+            let todatesarr = []
+            let widfinalarr=[];
+            for (let i = 0; i < cnames.length; i++) {
+                if (cnames[i].value.trim() != "") {
+                    countw++;
+                }
+                else {
+                    break;
+                }
+            }
+
+            for (let i = 0; i < countw; i++) {
+                cnamesarr.push(cnames[i].value.trim());
+                designationsarr.push(designations[i].value.trim())
+                fromdatesarr.push(fromdates[i].value.trim());
+                todatesarr.push(todates[i].value.trim())
+                widfinalarr.push(widarr[i]);
+            }
+
+
+            //reference
+            let refnames = document.getElementsByName("refname");
+            let refcontacts = document.getElementsByName("refcontact");
+            let refrelations = document.getElementsByName("refrelation");
+            let countr = 0;
+            let refnamesarr = [];
+            let refcontactsarr = [];
+            let refrelationsarr = [];
+            let ridfinalarr=[];
+            for (let i = 0; i < refnames.length; i++) {
+                if (refnames[i].value.trim() != "") {
+                    countr++;
+                }
+                else {
+                    break;
+                }
+            }
+            for (let i = 0; i < countr; i++) {
+                refnamesarr.push(refnames[i].value.trim());
+                refcontactsarr.push(refcontacts[i].value.trim());
+                refrelationsarr.push(refrelations[i].value.trim());
+                ridfinalarr.push(ridarr[i]);
+            }
+
+
+            //preferences   
+
+
+
+            //language known
+            function checkboxvalues(mainid, ...childid) {
+                let obj = {};
+                let main = document.getElementById(mainid);
+                let mainval = main.value;
+                //   console.log(mainval);
+                if (main.checked === true) {
+                    let arr = [];
+                    for (let id of childid) {
+                        var idd = document.getElementById(id);
+                        if (idd.checked === true) {
+                            arr.push("1");
+                        }
+                        else {
+                            arr.push("0");
+                        }
+                    }
+                    obj[mainval] = arr;
+                };
+                return obj;
+            }
+            let languageknown = [];
+            let evall = checkboxvalues("englishCheckbox", "Read1", "Write1", "Speak1")
+            let hvall = checkboxvalues("hindiCheckbox", "Read2", "Write2", "Speak2")
+            let engvall = checkboxvalues("gujaratiCheckbox", "Read3", "Write3", "Speak3")
+            // if (Object.keys(evall).length != 0) {
+                languageknown.push(evall);
+            // }
+            // if (Object.keys(hvall).length != 0) {
+                languageknown.push(hvall);
+            // }
+            // if (Object.keys(engvall).length != 0) {
+                languageknown.push(engvall);
+            // }
+            console.log("language known array");
+            console.log(languageknown);
+            //techknown
+
+           
+            function radiovalues(mainId, ...childId) {
+                let objr = {};
+                let mainr = document.getElementById(mainId);
+                let mainvalr = mainr.value;
+
+                if (mainr.checked === true) {
+                    for (let id of childId) {
+                        var idd = document.getElementById(id);
+                        if (idd.checked === true) {
+                            objr[mainvalr] = idd.value;
+                            break;
+                        }
+
+                    }
+
+                };
+                return objr;
+            }
+            let phpval = radiovalues("phpCheckboxes", "beginner1", "mid1", "expert1")
+            let laraval = radiovalues("laravelCheckboxes", "beginner2", "mid2", "expert2")
+            let mysqlval = radiovalues("mysqlCheckboxes", "beginner3", "mid3", "expert3")
+            let oracleval = radiovalues("oracleCheckboxes", "beginner4", "mid4", "expert4")
+
+            let techknown = [];
+            // if (Object.keys(phpval).length != 0) {
+                techknown.push(phpval);
+            // }
+            // if (Object.keys(laraval).length != 0) {
+                techknown.push(laraval);
+            // }
+            // if (Object.keys(mysqlval).length != 0) {
+                techknown.push(mysqlval);
+            // }
+            // if (Object.keys(oracleval).length != 0) {
+                techknown.push(oracleval);
+            // }
+
+            console.log("techknown array");
+            console.log(techknown);
+         let idb=document.getElementById('idb').value;
+    //      console.log(idb);
+    // console.log( widfinalarr,ridfinalarr,eidfinalarr);
+             
+            try {
+                await fetch('/save-details', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        fname, lname, desig, emailid, Pnumber, add1, add2, city, state, statusRelation, gendervalue, zipcode, dob, boardnames
+                        ,passingyears, percentages, cnamesarr, designationsarr, fromdatesarr, todatesarr
+                        ,refnamesarr, refcontactsarr, refrelationsarr, location, noticeP, expectedCTC, currentCTC, department, languageknown, techknown,idb
+                         ,widfinalarr,ridfinalarr,eidfinalarr,lidarr,tidarr,pid}),
+                });
+            } catch (error) {
+                console.error('Error saving education details:', error);
+            }
+
+
+        }
+
+        function validateForm() {
+            if (j == 0) {
+
+                let fname = document.getElementById('fname').value;
+                let fnameerror = document.getElementById('fnameerror');
+                let lname = document.getElementById('lname').value;
+                let lnameerror = document.getElementById('lnameerror');
+                let desig = document.getElementById('desig').value;
+                let desigerror = document.getElementById('desigerror');
+                let emailid = document.getElementById('emailid').value;
+                let emailiderror = document.getElementById('emailiderror');
+                let Pnumber = document.getElementById('Pnumber').value;
+                let Pnumbererror = document.getElementById('Pnumbererror');
+                let address = document.getElementById('add1').value;
+                let addresserror = document.getElementById('addresserror');
+                let city = document.getElementById('city').value;
+                let cityerror = document.getElementById('cityerror');
+                let state = document.getElementById('state').value;
+                let stateerror = document.getElementById('stateerror');
+                let statusRelation = document.getElementById('statusRelation').value;
+                let relationerror = document.getElementById('relationerror');
+                let zipcode = document.getElementById('zipcode').value;
+                let zipcodeerror = document.getElementById('zipcodeerror');
+                let dob = document.getElementById('dob').value;
+                let doberror = document.getElementById('doberror');
+
+                let gendererror = document.getElementById("gendererror");
+
+
+                if (fname.trim() === "") {
+                    fnameerror.innerHTML = "First name required*";
+                    fnameerror.style.visibility = "visible";
+                    fnameerror.style.color = "red";
+                    return false;
+                }
+                if (!/^[a-zA-Z]+$/.test(fname)) {
+                    fnameerror.innerHTML = "Invalid First name*";
+                    fnameerror.style.visibility = "visible";
+                    fnameerror.style.color = "red";
+                    return false;
+                }
+                if (lname.trim() === "") {
+                    lnameerror.innerHTML = "Last name required*";
+                    lnameerror.style.visibility = "visible";
+                    lnameerror.style.color = "red";
+                    return false;
+                }
+                if (!/^[a-zA-Z]+$/.test(lname)) {
+                    lnameerror.innerHTML = "Invalid Last name*";
+                    lnameerror.style.visibility = "visible";
+                    lnameerror.style.color = "red";
+                    return false;
+                }
+                if (desig.trim() === "") {
+                    desigerror.innerHTML = "Designation required*";
+                    desigerror.style.visibility = "visible";
+                    desigerror.style.color = "red";
+                    return false;
+                }
+                if (!/^[a-zA-Z]+$/.test(desig)) {
+                    desigerror.innerHTML = "Invalid Designation*";
+                    desigerror.style.visibility = "visible";
+                    desigerror.style.color = "red";
+                    return false;
+                }
+
+                if (emailid.trim() === "") {
+                    emailiderror.innerHTML = "Email Id required*";
+                    emailiderror.style.visibility = "visible";
+                    emailiderror.style.color = "red";
+                    return false;
+                }
+                if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(emailid)) {
+                    emailiderror.innerHTML = "Invalid Email Id*";
+                    emailiderror.style.visibility = "visible";
+                    emailiderror.style.color = "red";
+                    return false;
+                }
+                if (Pnumber.trim() === "") {
+                    Pnumbererror.innerHTML = "Contact Number required*";
+                    Pnumbererror.style.visibility = "visible";
+                    Pnumbererror.style.color = "red";
+                    return false;
+                }
+
+                if (!/^\d{10}$/.test(Pnumber)) {
+                    Pnumbererror.innerHTML = "Invalid Contact Number*";
+                    Pnumbererror.style.visibility = "visible";
+                    Pnumbererror.style.color = "red";
+                    return false;
+                }
+
+                var male = document.getElementById('male').checked
+                var female = document.getElementById('female').checked
+                var others = document.getElementById('others').checked
+                if (male === false && female === false && others === false) {
+                    gendererror.innerHTML = "Gender required*";
+                    gendererror.style.visibility = "visible";
+                    gendererror.style.color = "red";
+                    return false;
+                }
+                if (statusRelation === 'select_relation') {
+                    relationerror.innerHTML = "Relation Status required*";
+                    relationerror.style.visibility = "visible";
+                    relationerror.style.color = "red";
+                    return false;
+                }
+
+                if (address.trim() === "") {
+                    addresserror.innerHTML = "Address required*";
+                    addresserror.style.visibility = "visible";
+                    addresserror.style.color = "red";
+                    return false;
+                }
+                if (!/^[a-zA-Z0-9.!#$%&'*@+/=?_{|}~-]+$/.test(address)) {
+                    addresserror.innerHTML = "Invalid Address*";
+                    addresserror.style.visibility = "visible";
+                    addresserror.style.color = "red";
+                    return false;
+                }
+                if (city.trim() === "") {
+                    cityerror.innerHTML = "City required*";
+                    cityerror.style.visibility = "visible";
+                    cityerror.style.color = "red";
+                    return false;
+                }
+                if (!/^[a-zA-Z]+$/.test(city)) {
+                    cityerror.innerHTML = "Invalid City";
+                    cityerror.style.visibility = "visible";
+                    cityerror.style.color = "red";
+                    return false;
+                }
+                if (state === 'select_state') {
+                    stateerror.innerHTML = "State required*";
+                    stateerror.style.visibility = "visible";
+                    stateerror.style.color = "red";
+                    return false;
+                }
+
+                if (zipcode.trim() === "") {
+                    zipcodeerror.innerHTML = "Zipcode required*";
+                    zipcodeerror.style.visibility = "visible";
+                    zipcodeerror.style.color = "red";
+                    return false;
+                }
+                if (!/^\d{6}$/.test(zipcode)) {
+                    zipcodeerror.innerHTML = "Invalid ZipCode*";
+                    zipcodeerror.style.visibility = "visible";
+                    zipcodeerror.style.color = "red";
+                    return false;
+                }
+                if (dob.trim() === "") {
+                    doberror.innerHTML = "DOB required*";
+                    doberror.style.visibility = "visible";
+                    doberror.style.color = "red";
+                    return false;
+                }
+                if (!dateValid(dob)) {
+                    doberror.innerHTML = "Invalid Date";
+                    doberror.style.visibility = "visible";
+                    doberror.style.color = "red";
+                    return false;
+
+                }
+
+
+            }
+            if (j == 1) {
+                //education validation
+
+
+                let boardnames = document.getElementsByName("boardname");
+                let boardnameerrors = document.getElementsByName("boardnameerror");
+                let passingyears = document.getElementsByName("passingyear");
+                let percentages = document.getElementsByName("percentage");
+                let passingyearerrors = document.getElementsByName("passingyearerror");
+                let percentageerrors = document.getElementsByName("percentageerror")
+                for (let i = 0; i < boardnames.length; i++) {
+                    var passingyear = passingyears[i].value;
+                    var percentage = percentages[i].value;
+                    var passingyearerror = passingyearerrors[i];
+                    var percentageerror = percentageerrors[i];
+                    if ((passingyear.trim() != "" || percentage.trim() != "") && boardnames[i].value === "select_course") {
+                        boardnameerrors[i].innerHTML = "please select board";
+                        return false;
+                    }
+                    if (boardnames[i].value != "select_course") {
+
+                        if (passingyear.trim() === "") {
+                            passingyearerror.innerHTML = "passing year is required";
+                            return false;
+                        }
+                        if (isNaN(passingyear)) {
+                            passingyearerror.innerHTML = "invalid passingyear";
+                            return false;
+                        }
+                        var passyear = Number(passingyear);
+                        if (passyear < 1900 || passyear > 2024) {
+                            passingyearerror.innerHTML = "invalid passingyear";
+                            return false;
+                        }
+                        if (percentage.trim() === "") {
+                            percentageerror.innerHTML = "percentage year is required";
+                            return false;
+                        }
+                        if (isNaN(percentage)) {
+                            percentageerror.innerHTML = "invalid percentage";
+                            return false;
+                        }
+                        var perc = Number(percentage);
+                        if (perc > 100 || perc < 10) {
+                            percentageerror.innerHTML = "invalid percentage";
+                            return false;
+                        }
+                    }
+
+                }
+
+            }
+
+            if (j == 2) {
+                //work experiance validation
+
+                let cnames = document.getElementsByName("cnames");
+                let designations = document.getElementsByName("designations");
+                let fromdates = document.getElementsByName("fromdates");
+                let todates = document.getElementsByName("todates");
+                let desigerror = document.getElementsByName("desigerror");
+                let cnameserror = document.getElementsByName("cnameserror");
+                let fromdateserror = document.getElementsByName("fromdateserror");
+                let todateserror = document.getElementsByName("todateserror");
+                for (let i = 0; i < cnames.length; i++) {
+                    if (cnames[i].value.trim() != "") {
+                        var designation = designations[i].value;
+                        var fromdate = fromdates[i].value;
+                        var todate = todates[i].value;
+                        if (designation.trim() === "") {
+                            desigerror[i].innerHTML = "designation is required";
+                            return false;
+                        }
+                        if (!/^[a-zA-Z]+$/.test(designation)) {
+                            desigerror[i].innerHTML = " invalid designation ";
+                            return false;
+                        }
+                        if (fromdate.trim() === "") {
+                            fromdateserror[i].innerHTML = "date is required"
+                            return false;
+                        }
+                        if (!dateValid(fromdate)) {
+                            fromdateserror[i].innerHTML = " invalid date "
+                            return false;
+                            return false;
+
+                        }
+                        if (todate.trim() === "") {
+                            todateserror[i].innerHTML = "date is required"
+                            return false;
+                        }
+                        if (!dateValid(todate)) {
+                            todateserror[i].innerHTML = "date is required"
+                            return false;
+
+                        }
+                    }
+                }
+
+            }
+
+            if (j == 3) {
+                //lang known validation 
+
+            }
+            if (j == 4) {
+                //tech known validation
+
+                function radiochecked(mainId, errorid, ...childId) {
+                    let main = document.getElementById(mainId);
+                    let error = document.getElementById(errorid);
+                    if (main.checked === true) {
+                        for (let id of childId) {
+                            let idd = document.getElementById(id);
+                            if (idd.checked === true) {
+                                return true;
+                            }
+
+                        }
+                        error.innerHTML = "please select level";
+                        return false;
+                    }
+                    return true;
+                }
+
+                let phpp = radiochecked("phpCheckboxes", "phperror", "beginner1", "mid1", "expert1");
+                if (phpp === false) {
+                    return false;
+                }
+                let lara = radiochecked("laravelCheckboxes", "laravelerror", "beginner2", "mid2", "expert2");
+                if (lara === false) {
+                    return false;
+                }
+                let mysql = radiochecked("mysqlCheckboxes", "mysqlerror", "beginner3", "mid3", "expert3");
+                if (mysql === false) {
+                    return false;
+                }
+                let ora = radiochecked("oracleCheckboxes", "oracleerror", "beginner4", "mid4", "expert4");
+                if (ora === false) {
+                    return false;
+                }
+            }
+            if (j == 5) {
+                //reference contact validation
+                let refnames = document.getElementsByName("refname");
+                let refcontacts = document.getElementsByName("refcontact");
+                let refrelations = document.getElementsByName("refrelation");
+                let refnameerrors = document.getElementsByName("refnameerror");
+                let refcontacterrors = document.getElementsByName("refcontacterror");
+                let refrelationerrors = document.getElementsByName("refrelationerror")
+                for (let i = 0; i < refnames.length; i++) {
+                    if (refnames[i].value.trim() != "") {
+                        let refname = refnames[i].value;
+                        if (!/^[a-zA-Z]+$/.test(refname)) {
+                            refnameerrors[i].innerHTML = "invalid name";
+                            return false;
+                        }
+                        let refcontact = refcontacts[i].value;
+                        let refrelation = refrelations[i].value;
+
+                        if (refcontact.trim() === "") {
+                            refcontacterrors[i].innerHTML = "please enter contact"
+                            return false;
+                        }
+                        if (!/^\d{10}$/.test(refcontact)) {
+                            refcontacterrors[i].innerHTML = "invalid contact"
+                            return false;
+                        }
+
+                        if (refrelation.trim() === "") {
+                            refrelationerrors[i].innerHTML = "please enter relation";
+                            return false;
+                        }
+                        if (!/^[a-zA-Z]+$/.test(refrelation)) {
+                            refrelationerrors[i].innerHTML = "invalid relation";
+                            return false;
+                        }
+                    }
+                }
+            }
+            if (j == 6) {
+                //preference validation
+
+
+            }
+            function dateValid(dob) {
+                let arr = dob.split('-');
+                let date = Number(arr[2]);
+                let month = Number(arr[1]);
+                let year = Number(arr[0]);
+                if (date >= 1 && date <= 30 && month >= 1 && month <= 12 && year >= 1900 && year <= 2024) {
+                    console.log("date valid");
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+
+        function validateCheckbox() {
+            const englishCheckboxes = document.getElementById("englishCheckbox");
+            const hindiCheckboxes = document.getElementById("hindiCheckbox");
+            const gujaratiCheckboxes = document.getElementById("gujaratiCheckbox");
+            if (englishCheckbox.checked) {
+                enableCheckboxes("Read1", "Write1", "Speak1")
+            }
+            else {
+                disableCheckboxes("Read1", "Write1", "Speak1")
+            }
+            if (hindiCheckbox.checked) {
+                enableCheckboxes("Read2", "Write2", "Speak2")
+            }
+            else {
+                disableCheckboxes("Read2", "Write2", "Speak2")
+            }
+            if (gujaratiCheckbox.checked) {
+                enableCheckboxes("Read3", "Write3", "Speak3")
+            }
+            else {
+                disableCheckboxes("Read3", "Write3", "Speak3")
+            }
+        }
+        function validateTechnology() {
+            const phpCheckboxes = document.getElementById("phpCheckboxes");
+            const laravelCheckboxes = document.getElementById("laravelCheckboxes");
+            const mysqlCheckboxes = document.getElementById("mysqlCheckboxes");
+            const oracleCheckboxes = document.getElementById("oracleCheckboxes");
+            if (phpCheckboxes.checked) {
+                enableCheckboxes("beginner1", "mid1", "expert1")
+            }
+            else {
+                disableCheckboxes("beginner1", "mid1", "expert1")
+            }
+            if (laravelCheckboxes.checked) {
+                enableCheckboxes("beginner2", "mid2", "expert2")
+            }
+            else {
+                disableCheckboxes("beginner2", "mid2", "expert2")
+            }
+            if (mysqlCheckboxes.checked) {
+                enableCheckboxes("beginner3", "mid3", "expert3")
+            }
+            else {
+                disableCheckboxes("beginner3", "mid3", "expert3")
+            }
+            if (oracleCheckboxes.checked) {
+                enableCheckboxes("beginner4", "mid4", "expert4")
+            }
+            else {
+                disableCheckboxes("beginner4", "mid4", "expert4")
+            }
+        }
+        function enableCheckboxes(...checkBoxId) {
+            for (const id of checkBoxId) {
+                console.log(id);
+                document.getElementById(id).disabled = false;
+
+            }
+        }
+        //disabling checkbox function
+        function disableCheckboxes(...checkBoxId) {
+            for (const id of checkBoxId) {
+                document.getElementById(id).disabled = true;
+                document.getElementById(id).checked = false;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
