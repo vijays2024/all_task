@@ -3,6 +3,8 @@ const authentication=require("./middleware/authentication.js")
 const path=require("path")
 const app=express();
 const port=5000;
+
+require("dotenv").config()
 const bodyParser=require("body-parser");
 const crypto=require("crypto");
 
@@ -32,11 +34,11 @@ app.set('view engine', 'ejs');
 
 
 var con=mysql.createConnection({
-    host:"localhost",
-    user:"root",
-    password:"Vijay@123",
-    database:"commonDatabase",
-
+    host:`${process.env.HOST}`,
+    user:`${process.env.DBUSER}`,
+    password:`${process.env.DBPASSWORD}`,
+    database:`${process.env.DATABASE}`,
+    port: 3306
 })
 con.connect(function(err){
     if(err)
@@ -114,10 +116,8 @@ app.get("/formsPractice", authentication,(req,res)=>{
 
 
 
-//exam grid app.js
-
-
-app.get("/students",authentication,(req,res)=>{
+//attendance grid
+app.get("/attendance",authentication,(req,res)=>{
     // console.log(typeof req.query.page)
     const page=+req.query.page ||1;
     let Items_per_page=10;
@@ -157,6 +157,11 @@ arr=select.split("-");
         }
     })
 })
+
+
+
+
+//exam grid app.js
 app.get("/results",authentication,(req,res)=>{
     const page=+req.query.page ||1;
     let Items_per_page=10;
@@ -593,6 +598,8 @@ app.get("/pagination",authentication,(req,res)=>{
         }
         else {
            
+        
+        
             res.render('/home/vijay-solanki/Alltasks/views/pagination/data.ejs',{
                 data:result,
                 currentPage:page,
@@ -1064,4 +1071,93 @@ app.get("/htmlcss2",authentication,(req,res)=>{
 
 app.get("/htmlcss3",authentication,(req,res)=>{
     res.sendFile(__dirname+"/views/htmlexercise3/index.html")
+})
+
+
+//dynamic query table
+
+
+app.get("/dynamicquery",authentication,(req,res)=>{
+  let Items_per_page=10
+    const page=+req.query.page ||1;
+    
+   let offset=(page-1)*Items_per_page;
+
+   let final_query;
+    const lastIndex=20;
+     const query1=req.query.query || "select * from student"
+   let limityes=false;
+
+    let arr=query1.split(" ");
+    console.log(arr.indexOf("limit"));
+    let po=arr.indexOf("limit");
+    let limitvalue=arr[po+1];
+  
+    arr[po+1]=5;
+    const limitquery=arr.join(" ");
+    if(arr.includes("limit")){
+        offset=(page-1)*arr[po+1];
+        limityes=true;
+        final_query=`${limitquery}  offset ${offset}`
+    }
+    else{
+        final_query=`${query1} limit 10 offset ${offset}`
+    }
+    console.log(query1);
+    
+    
+    
+    con.query(final_query,(err,result)=>{
+        if(err){
+            // console.log("data not found");
+            // /home/vijay-solanki/Alltasks/views/dynamic query table/invalid.ejs
+           res.render("/home/vijay-solanki/Alltasks/views/dynamic query table/invalid.ejs",{errorDisplay:"invalid query "});
+            
+           
+        }
+        else{
+            if(result.length==0){
+                res.render("/home/vijay-solanki/Alltasks/views/dynamic query table/invalid.ejs",{errorDisplay:" No data found"});
+              }
+              else{
+
+
+                let key=Object.keys(result[0]);
+              console.log(limityes);
+              console.log(limitvalue);
+                if(limityes===true){
+                    Items_per_page=5;
+                    let lastPage=Math.ceil(limitvalue/Items_per_page);
+                    res.render("data.ejs",{result,key,
+                        currentPage:page,
+                        hasNextPage:page<lastPage,
+                        hasPreviousPage:page>1, 
+                        nextPage:page+1,
+                        previousPage:page-1,
+                        lastPage:Math.ceil(limitvalue/Items_per_page),
+                        lastIndex:limitvalue/Items_per_page,
+                        final_query:query1,
+                        
+                     })
+                }
+                // /home/vijay-solanki/Alltasks/views/dynamic query table/data.ejs
+                else {
+                res.render("/home/vijay-solanki/Alltasks/views/dynamic query table/data.ejs",{result,key,
+                    currentPage:page,
+                    hasNextPage:(Items_per_page*page)<200,
+                    hasPreviousPage:page>1, 
+                    nextPage:page+1,
+                    previousPage:page-1,
+                    lastPage:Math.ceil(200/Items_per_page),
+                    lastIndex:lastIndex,
+                    final_query:query1,
+                    
+                 })
+                }
+              }
+                
+        }
+    
+    })
+
 })

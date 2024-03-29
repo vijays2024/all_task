@@ -42,23 +42,22 @@ a{
 </head>
 
 <body>
-
+  <h3 style="text-align: center;">24DEV081 vijaykumar solanki</h3>
+   <h3 style="text-align: center;">Pagination and sorting</h3>
  
   <table>
     <tr>
-
-    <th><div><a href="/pagination?sort=firstname"><</a><a href="/pagination?sort=firstname">firstname</a><a href="/pagination?sort=firstname&pages=1&sortOrder=DESC">></a></div></th>
-    <th><div><a href="/pagination?sort=middlename"><</a><a href="/pagination?sort=middlename">middlename</a><a href="/pagination?sort=middlename&pages=1 &sortOrder=DESC">></a></div></th>
-      <th><div><a href="/pagination?sort=DOB"><</a><a href="/pagination?sort=DOB ">DOB</a><a href="/pagination?sort=DOB&pages=1 &sortOrder=DESC">></a></div></th>
-      <th><div><a href="/pagination?sort=contactNum"><</a> <a href="/pagination?sort=contactNum">contactNum</a><a href="/pagination?sort=contactNum&pages=1 &sortOrder=DESC">></a></div></th>
-   <th><div><a href="/pagination?sort=contactNum"><</a><a href="/pagination?sort=emailId">emailId</a><a href="/pagination?sort=emailId&pages=1 &sortOrder=DESC">></a></div></th>
-    <th><div><a href="/pagination?sort=city"><</a><a href="/pagination?sort=city">city</a><a href="/pagination?sort=city&pages=1 &sortOrder=DESC">></a></div></th>
-    
-     <th><div><a href="/pagination?sort=country"><</a><a href="/pagination?sort=country">country</a><a href="/pagination?sort=country&pages=1 &sortOrder=DESC">></a></div></th>
-    <th><div><a href="/pagination?sort=zipcode`"><</a><a href="/pagination?sort=zipcode">zipcode</a><a href="/pagination?sort=zipcode&pages=1 &sortOrder=DESC">></a></div></th>
+   <th><a href="/pagination?sort=firstname&sortOrder=<%=sortBy==='firstname' && sortOrder==='asc'?'desc':'asc'%>"><span style='font-size:50px;color: blue;'>&#8597;</span></a>FirstName</th>
+    <th><a href="/pagination?sort=middlename&sortOrder=<%=sortBy==='middlename' && sortOrder==='asc'?'desc':'asc'%>"><span style='font-size:50px;color: blue;'>&#8597;</span></a>Middle Name</th>
+    <th><a href="/pagination?sort=DOB&sortOrder=<%=sortBy==='DOB' && sortOrder==='asc'?'desc':'asc'%>"><span style='font-size:50px;color: blue;'>&#8597;</span></a>DOB</th>
+   
+    <th><a href="/pagination?sort=emailId&sortOrder=<%=sortBy==='emailId' && sortOrder==='asc'?'desc':'asc'%>"><span style='font-size:50px;color: blue;'>&#8597;</span></a>emailID</th>
+    <th><a href="/pagination?sort=city&sortOrder=<%=sortBy==='city' && sortOrder==='asc'?'desc':'asc'%>"><span style='font-size:50px;color: blue;'>&#8597;</span></a>city</th>
+    <th><a href="/pagination?sort=country&sortOrder=<%=sortBy==='country' && sortOrder==='asc'?'desc':'asc'%>"><span style='font-size:50px;color: blue;'>&#8597;</span></a>country</th>
   
-
-    </tr>
+  
+  
+  </tr>
   
     <% data.forEach(entry=>{ %>
        <tr>
@@ -66,13 +65,13 @@ a{
         <td><%= entry.middlename%> </td>
         
         <td><%= entry.DOB %> </td>
-        <td><%= entry.contactNum%> </td>
+        
         <td><%= entry.emailId%> </td>
     
         <td><%= entry.city %> </td>
        
         <td><%= entry.country %> </td>
-        <td><%= entry.zipcode %> </td>
+    
        
        </tr> 
     <%  }) %>

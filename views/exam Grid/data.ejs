@@ -66,17 +66,17 @@ tr,td,th{
 
    <nav>
     <ul class="pagination">
-      <li class="page-item"><a  class="page-link" href="/students?select=<%=select%>&page=1"><<</a></li>
+      <li class="page-item"><a  class="page-link" href="/attendance?select=<%=select%>&page=1"><<</a></li>
       <% if( hasPreviousPage) { %>
 
-        <li class="page-item"><a  class="page-link" href="/students?page=<%= previousPage%>&select=<%=select%>"><</a></li>
+        <li class="page-item"><a  class="page-link" href="/attendance?page=<%= previousPage%>&select=<%=select%>"><</a></li>
         <% } else {%>
           <li class="page-item disabled"><span class="page-link"><</span></li>
           <% } %>
           <li class="page-item"><%=currentPage%></li>
           <% if(hasNextPage){%>
             <li class="page-item">
-              <a href="/students?page=<%=nextPage%>&select=<%=select%>" class="page-link">></a>
+              <a href="/attendance?page=<%=nextPage%>&select=<%=select%>" class="page-link">></a>
             </li>
             <% } else { %>
               <li class="page-item disabled">
@@ -84,7 +84,7 @@ tr,td,th{
               </li>
               <% }%>
               <li class="page-item">
-                <a href="/students?page=<%=lastIndex%>&select=<%=select%>" class="page-link">>></a>
+                <a href="/attendance?page=<%=lastIndex%>&select=<%=select%>" class="page-link">>></a>
               </li>
     </ul>
    </nav>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+      body{
+        background-color: darkcyan;
+        color: whitesmoke;
+      }
+      th{
+        color:bisque
+      }
+              tr,td,th{
+            border:1px solid black;
+        }        
+                .pagination{
+          display: flex;
+          gap:20px;
+          justify-content: center;
+        }
+        .page-link{
+          text-decoration: none;
+        }
+        .page-item{
+          text-decoration: none;
+          list-style: none;
+          font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+ 
+    <form action="#" method="get">
+        <label for="query">write your query here </label>
+        <input type="text" name="query" id="query"/>
+        <input type="submit" value="go"/>
+    </form>
+
+
+<table>
+    <tr>
+        <% for(let i=0;i<key.length;i++){ %>
+            <th><%=key[i] %></th>
+
+         <%   }%>
+    </tr>
+    <% for(let i=0;i<result.length;i++){ %>
+   <tr>
+    <% for(let j=0;j<key.length;j++){%>
+     <td><%=result[i][key[j]]%></td>
+    <%}%>
+   </tr>
+   <% }%>
+</table>
+
+
+
+
+<nav>
+    <ul class="pagination">
+      <li class="page-item"><a  class="page-link" href="/dynamicquery?page=1&query=<%=final_query%>"><<</a></li>
+      <% if( hasPreviousPage) { %>
+
+        <li class="page-item"><a  class="page-link" href="/dynamicquery?page=<%= previousPage%>&query=<%=final_query%>"><</a></li>
+        <% } else {%>
+          <li class="page-item disabled"><span class="page-link"><</span></li>
+          <% } %>
+          <li class="page-item"><%=currentPage%></li>
+          <% if(hasNextPage){%>
+            <li class="page-item">
+              <a href="/dynamicquery?page=<%=nextPage%>&query=<%=final_query%>" class="page-link">></a>
+            </li>
+            <% } else { %>
+              <li class="page-item disabled">
+                <span class="page-link">></span>
+              </li>
+              <% }%>
+              <li class="page-item">
+                <a href="/dynamicquery?page=<%=lastIndex%>&query=<%=final_query%>" class="page-link">>></a>
+              </li>
+    </ul>
+   </nav>
+
+</body>
+</html>
