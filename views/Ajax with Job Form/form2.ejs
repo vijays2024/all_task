@@ -467,7 +467,8 @@
         <input type="button" value="previous" id="previous" onclick="displayblocknone(-1)">
         <input type="button" value="next" id="next" onclick="displayblocknone(1)">
     </div>
-
+   
+    <a href="/jobappAjax" style="display: none ;" id="data11">see all users</a>
     <!-- <input type="submit" value="register" >
         </form> -->
     <script>
@@ -545,7 +546,7 @@
         save.addEventListener("click", insertusingajax);
         async function insertusingajax() {
             //   alert("hello")
-
+            document.getElementById("data11").style.display="block";
             let location = document.getElementById('location').value;
             let locationerror = document.getElementById('locationerror');
             let noticeP = document.getElementById('noticeP').value;

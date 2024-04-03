@@ -138,10 +138,8 @@ arr=select.split("-");
             res.send("something went wrong");
         }
         else {
-        //    console.log(result);
-        // /home/vijay-solanki/Alltasks/views/exam Grid/data.ejs
-       
-            res.render('/home/vijay-solanki/Alltasks/views/exam Grid/data.ejs',{
+   
+                res.render(path.join(__dirname,"/views/exam Grid/data.ejs"),{
                  data:result,
                 days:Number(`${arr[2]}`),
                 currentPage:page,
@@ -211,7 +209,9 @@ arr=select.split("-");
         //    console.log(result);
 
        // /home/vijay-solanki/Alltasks/views/exam Grid/data.ejs
-            res.render('/home/vijay-solanki/Alltasks/views/exam Grid/search.ejs',{
+
+            // res.render('/home/vijay-solanki/Alltasks/views/exam Grid/search.ejs',{
+                 res.render(path.join(__dirname,"/views/exam Grid/search.ejs"),{
                  results:result,
                 days:Number(`${arr[2]}`),
                 currentPage:page,
@@ -223,6 +223,7 @@ arr=select.split("-");
                 lastIndex:lastIndex,
                 month:Number(`${arr[1]}`),
                 select:select,
+                search:0
             })
         }
     })
@@ -274,7 +275,8 @@ app.get("/results/:id",authentication,(req,res)=>{
                 console.log("success");
                 console.log(result1);
             }
-      res.render('/home/vijay-solanki/Alltasks/views/exam Grid/personal.ejs',{
+  
+              res.render(path.join(__dirname,'/views/exam Grid/personal.ejs'),{
                  data:result,
                  attendence:result1,
                  total_marks:0,
@@ -291,7 +293,7 @@ app.post('/postdata',authentication,(req,res)=>{
     const Items_per_page = 10;
     const page = req.query.page || 1;
     const offset = (page - 1) * Items_per_page;
-     let option1=req.body.option1;
+     let option1=req.body.option1 || "or";
     let fname = req.body.firstname;
     let prilim = req.body.prilim;
     let terminal = req.body.terminal;
@@ -361,13 +363,15 @@ app.post('/postdata',authentication,(req,res)=>{
         if(err) throw err;
        let lastIndex=Math.ceil(200/Items_per_page);
        
-        res.render('/home/vijay-solanki/Alltasks/views/exam Grid/search.ejs',{results:rows, currentPage:page,
+        res.render(path.join(__dirname,'/views/exam Grid/search.ejs'),{results:rows, currentPage:page,
             hasNextPage:(Items_per_page*page)<200,
             hasPreviousPage:page>1, 
             nextPage:page+1,
             previousPage:page-1,
             lastPage:Math.ceil(200/Items_per_page),
-            lastIndex:lastIndex});
+            lastIndex:lastIndex,
+            search:1
+        });
     });
 });
 
@@ -626,7 +630,7 @@ app.get("/pagination",authentication,(req,res)=>{
 app.get("/form",authentication,(req,res)=>{
 
 
-    res.render("/home/vijay-solanki/Alltasks/views/Ajax with Job Form/form2.ejs",{data:null,data1:null,data2:null,data3:null,data4:null,data5:null,data6:null,data7:null})
+    res.render(path.join(__dirname,"/views/Ajax with Job Form/form2.ejs"),{data:null,data1:null,data2:null,data3:null,data4:null,data5:null,data6:null,data7:null})
 })
 
 app.get("/jobappAjax",authentication,(req,res)=>{
@@ -637,7 +641,7 @@ app.get("/jobappAjax",authentication,(req,res)=>{
         }
         else{
             console.log(result);
-            res.render('/home/vijay-solanki/Alltasks/views/Ajax with Job Form/data.ejs',{users:result})
+            res.render(path.join(__dirname,'/views/Ajax with Job Form/data.ejs'),{users:result})
         }
        
     })
@@ -704,7 +708,7 @@ app.get("/form/update/:id",authentication,(req,res)=>{
                             }
                             else{
                                 console.log(result7);
-                                res.render('/home/vijay-solanki/Alltasks/views/Ajax with Job Form/form2.ejs',{data1:results[0],data:result2,data2:null,data3:result3,data4:result4,j:0,data5:result6,data6:result5,i:0,data7:result7[0]})
+                                res.render(path.join(__dirname,'/views/Ajax with Job Form/form2.ejs'),{data1:results[0],data:result2,data2:null,data3:result3,data4:result4,j:0,data5:result6,data6:result5,i:0,data7:result7[0]})
                             }
                          })
                           
@@ -1049,7 +1053,7 @@ else if(tidarr[i]==="" ){
 }
 
             }
-            res.redirect("/home/vijay-solanki/Alltasks/views/Ajax with Job Form/data.ejs");
+            res.redirect(path.join(__dirname,"/views/Ajax with Job Form/data.ejs"));
         })
        
 
@@ -1061,7 +1065,7 @@ else if(tidarr[i]==="" ){
 app.get("/sorting",authentication,(req,res)=>{
     res.sendFile(__dirname+"/views/sorting/sorting_exercise.html")
 })
-// /home/vijay-solanki/Alltasks/views/htmlCSSExercise/index.html
+
 app.get("/htmlcss1",authentication,(req,res)=>{
     res.sendFile(__dirname+"/views/htmlCSSExercise/index.html")
 })
@@ -1109,15 +1113,14 @@ app.get("/dynamicquery",authentication,(req,res)=>{
     
     con.query(final_query,(err,result)=>{
         if(err){
-            // console.log("data not found");
-            // /home/vijay-solanki/Alltasks/views/dynamic query table/invalid.ejs
-           res.render("/home/vijay-solanki/Alltasks/views/dynamic query table/invalid.ejs",{errorDisplay:"invalid query "});
+     
+           res.render(path.join(__dirname,"/views/dynamic query table/invalid.ejs"),{errorDisplay:"invalid query "});
             
            
         }
         else{
             if(result.length==0){
-                res.render("/home/vijay-solanki/Alltasks/views/dynamic query table/invalid.ejs",{errorDisplay:" No data found"});
+                res.render(path.join(__dirname,"/views/dynamic query table/invalid.ejs"),{errorDisplay:" No data found"});
               }
               else{
 
@@ -1142,7 +1145,7 @@ app.get("/dynamicquery",authentication,(req,res)=>{
                 }
                 // /home/vijay-solanki/Alltasks/views/dynamic query table/data.ejs
                 else {
-                res.render("/home/vijay-solanki/Alltasks/views/dynamic query table/data.ejs",{result,key,
+                res.render(path.join(__dirname,"/views/dynamic query table/data.ejs"),{result,key,
                     currentPage:page,
                     hasNextPage:(Items_per_page*page)<200,
                     hasPreviousPage:page>1, 

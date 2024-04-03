@@ -159,6 +159,8 @@ tr,td,th{
        <% }) %>
     </table>
     <br>
+
+    <% if( search==0) { %>
     <nav>
         <ul class="pagination">
           <li class="page-item"><a  class="page-link" href="/results?&page=1"><<</a></li>
@@ -183,6 +185,7 @@ tr,td,th{
                   </li>
         </ul>
        </nav>
+       <% } %>
 </body>
 <script>
     function redirectToReport(){
