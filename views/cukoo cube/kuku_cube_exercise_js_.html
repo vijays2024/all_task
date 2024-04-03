@@ -89,7 +89,7 @@ clickCount+=2;
     //    var lightbutton=clickable[0];
     // lightbutton.addEventListener('click',createTable);
     
-   document.getElementsByTagName('table')[0]
+//    document.getElementsByTagName('table')[0]
 //    .addEventListener("click",myfunction);
 //    function myfunction(e){
 //     if(e.target.classList[0]=="lightColor"){
@@ -144,12 +144,19 @@ document.querySelector('table').appendChild(document.querySelector("tr").cloneNo
 const arr=document.getElementsByTagName('td');
 for(let i=0;i<arr.length;i++)
 {
+    
    arr[i].style.backgroundColor=colorArray[num];
 }let tdNumber=document.querySelectorAll("td").length;
 count2=randomNumber(tdNumber)
 
 tdElement=arr[count2]
-
+// arr[count2].style.backgroundColor="black"
+console.log("hello");
+console.log(colorArray[num]);
+// let finalcolor=colorArray[num];
+// tdElement.style.backgroundColor=`${finalcolor}`;
+// tdElement.setAttribute("style", "background-color:red;"); 
+console.log("dsj"+tdElement.style.backgroundColor);
 arr[count2].setAttribute("class","newLightColor");
 
 }   
