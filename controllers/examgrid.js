@@ -47,12 +47,8 @@ arr=select.split("-");
             res.send("something went wrong");
         }
         else {
-        //    console.log(result);
-
-       // /home/vijay-solanki/Alltasks/views/exam Grid/data.ejs
-
-            // res.render('/home/vijay-solanki/Alltasks/views/exam Grid/search.ejs',{
-                 res.render("/home/vijay-solanki/Alltasks/views/exam Grid/search.ejs",{
+    
+                 res.render("exam Grid/search.ejs",{
                  results:result,
                 days:Number(`${arr[2]}`),
                 currentPage:page,
@@ -118,7 +114,7 @@ const resultwithId=(req,res)=>{
                 console.log(result1);
             }
   
-              res.render("/home/vijay-solanki/Alltasks/views/exam Grid/personal.ejs",{
+              res.render("exam Grid/personal.ejs",{
                  data:result,
                  attendence:result1,
                  total_marks:0,
@@ -204,7 +200,7 @@ const postdata=(req,res)=>{
         if(err) throw err;
        let lastIndex=Math.ceil(200/Items_per_page);
        
-        res.render("/home/vijay-solanki/Alltasks/views/exam Grid/search.ejs",{results:rows, currentPage:page,
+        res.render("exam Grid/search.ejs",{results:rows, currentPage:page,
             hasNextPage:(Items_per_page*page)<200,
             hasPreviousPage:page>1, 
             nextPage:page+1,

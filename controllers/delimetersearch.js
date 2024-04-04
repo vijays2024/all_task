@@ -3,7 +3,11 @@ const path=require("path")
 let f=require("../practice")
 const delimeter=(req,res)=>{
 
-    let query1=req.query.query ||"select * from student_master limit 10"; 
+    let query1=req.query.query ||""; 
+    if(query1===""){
+        res.render("Delimeter search/data.ejs",{noquery:0,query:"",data:null})
+    }
+    else{
     let string1="select * from student_master limit 10";
     if(query1!="select * from student_master limit 10"){
      string1=query1;
@@ -20,8 +24,10 @@ const delimeter=(req,res)=>{
      }
    
     //  let pathval=path.join(__dirname,"views/Delimeter search/data.ejs");
-     res.render("/home/vijay-solanki/Alltasks/views/Delimeter search/data.ejs",{data:result,query:string1})
+     res.render("Delimeter search/data.ejs",{data:result,query:string1,noquery:1})
+    
     })
+}
  }
 
  module.exports={delimeter}

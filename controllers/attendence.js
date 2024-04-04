@@ -1,6 +1,6 @@
 const con=require("../connection/connection")
 const path=require("path")
-const attendancecontroller=(req,res)=>{
+const attendancecontroller= (req,res)=>{
     // console.log(typeof req.query.page)
     const page=+req.query.page ||1;
     let Items_per_page=10;
@@ -22,7 +22,7 @@ arr=select.split("-");
         }
         else {
    
-                res.render("/home/vijay-solanki/Alltasks/views/exam Grid/data.ejs",{
+                res.render("exam Grid/data.ejs",{
                  data:result,
                 days:Number(`${arr[2]}`),
                 currentPage:page,

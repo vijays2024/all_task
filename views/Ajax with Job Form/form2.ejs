@@ -6,15 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    legend {
-      background-color: gray;
+    /* legend {
+      
       color: white;
       padding: 5px 10px;
-    }
+    } */
 
     .education {
-
-      background-color: #eeeeee;
+      background-color: lightcyan;
       max-width: 1080px;
     }
   </style>
@@ -26,10 +25,10 @@
   </center>
 
   <form name="form" id="form1" action="/update" method="post">
-
-    <div class="education">
-      <fieldset>
+  <fieldset class="education">
         <legend>Personal Details</legend>
+    <div >
+      
         <input type="hidden" name="idb" id="idb" value="<%= data1 ? data1.id : '' %>"><br>
         First Name <input type="text" name="fname" id="fname" autofocus value="<%= data1 ? data1.firstname : '' %>">
         <p style="display: inline; visibility: hidden;" id="fnameerror">error</p><br><br>
@@ -80,17 +79,17 @@
         <p style="display: inline; visibility: hidden;" id="zipcodeerror">error</p><br><br>
         Date Of Birth <input type="text" id="dob" name="dob" placeholder="yyyy-mm-dd" value="<%= data1 ? data1.dob : '' %>">
         <p style="display: inline; visibility: hidden;" id="doberror">error</p><br><br>
-      </fieldset>
+     
     </div>
+       </fieldset>
     <br><br><br>
-
-    <div class="education educationdetails">
-      <input type="button" value="+" onclick="addrow('educationdetails','ed')" style="display: inline-block;width:4%">
-      <input type="button" value="-" onclick="deleterow('educationdetails','ed')" style="display: inline-block;width:4%">
-      <fieldset>
+ <fieldset class="education educationdetails">
         <legend>Education Details</legend>
 
-        <div class="ed">
+    <div>
+      <input type="button" value="+" onclick="addrow('educationdetails','ed',4)" style="display: inline-block;width:4%">
+      <input type="button" value="-" onclick="deleterow('educationdetails','ed',4)" style="display: inline-block;width:4%">
+       <div class="ed">
           <input type="hidden" name="eid" value="<%= data && data[0] ? data[0].id : '' %>"><br>
           <label for="boardname">name of board</label>
           <span name="boardnameerror"></span>
@@ -173,17 +172,17 @@
           <input type="text" name="percentage" value="<%=data && data[3] ? data[3].percentage : '' %>">
 
         </div>
-      </fieldset>
+
 
       <br><br><br>
     </div>
-    <div class="education workdetails">
-      <input type="button" value="+" onclick="addrow('workdetails','work')" style="display: inline-block;width:4%">
-      <input type="button" value="-" onclick="deleterow('workdetails','work')" style="display: inline-block;width:4%">
-      <fieldset>
+     </fieldset>
+     <fieldset class="education">
         <legend>Work Experience</legend>
-
-        <div class="work">
+    <div class="workdetails">
+      <input type="button" value="+" onclick="addrow('workdetails','work',3)" style="display: inline-block;width:4%">
+      <input type="button" value="-" onclick="deleterow('workdetails','work',3)" style="display: inline-block;width:4%">
+    <div class="work">
           <input type="hidden" name="wid" value="<%= data3 && data3[0] ? data3[0].id : '' %>"><br>
           Company Name <span name="cnameserror"></span>
           <input type="text" name="cnames" id="cnames" value="<%= data3 && data3[0] ? data3[0].companyname : '' %>">
@@ -197,7 +196,7 @@
           To <span name="todateserror"></span>
           <input type="text" name="todates" id="to1" placeholder="yyyy-mm-dd" value="<%=data3 && data3[0] ? data3[0].todate : '' %>">
         </div>
-        <br><br>
+      
         <div class="work">
           <input type="hidden" name="wid" value="<%= data3 && data3[1] ? data3[1].id : '' %>"><br>
           Company Name <span name="cnameserror"></span>
@@ -226,14 +225,13 @@
           To <span name="todateserror"></span>
           <input type="text" name="todates" id="to3" placeholder="yyyy-mm-dd" value="<%=data3 && data3[2] ? data3[2].todate : '' %>">
         </div>
-        <br><br>
-
-      </fieldset>
-      <br><br><br>
+        
     </div>
-    <div class="education">
-      <fieldset>
-        <legend>Language Known</legend>
+</fieldset>
+<fieldset class="education">
+    <legend>Language Known</legend>
+    <div >
+  
         <input type="hidden" name="lid" value="<%= data4 && data4[j] && data4[j].language==='english' ? data4[j].id : '' %>"><br>
         <input type="checkbox" id="englishCheckbox" name="english" value="english" <% if(data4 && data4[j] &&
                 data4[j].language==='english' ) {%> checked <% } %> onchange="validateCheckbox()">
@@ -286,13 +284,14 @@
                                                                             data4[j].canspeak==='1' ) {%> checked <% }
                                                                             %> disabled>
         <label for="Speak3">Speak</label>
-      </fieldset>
+  
       <br><br><br>
     </div>
-
-    <div class="education">
-      <fieldset>
-        <legend>Technologies Known</legend>
+</fieldset>
+<fieldset  class="education">
+    <legend>Technologies Known</legend>
+    <div>
+    
         <input type="hidden" name="tid" value="<%= data6 && data6[i] && data6[i].techname==='php' ? data6[i].id : '' %>"><br>
         <input type="checkbox" id="phpCheckboxes" name="phpCheck" value="php" <% if( data6 && data6[i] &&
                 data6[i].techname==='php' ) {%> checked <% } %> onchange="validateTechnology()">
@@ -380,16 +379,18 @@
                                                                                                     data6[i].level==='expert'
                                                                                                     ) {%> checked <%} %> disabled>
         <label for="expert4">Expert</label>
-      </fieldset>
+ 
       <br><br>
 
     </div>
-    <div class="education refdetails">
-      <input type="button" value="+" onclick="addrow('refdetails','ref')" style="display: inline-block;width:4%">
-      <input type="button" value="-" onclick="deleterow('refdetails','ref')" style="display: inline-block;width:4%">
+</fieldset>
 
-      <fieldset>
-        <legend>Reference Contact</legend>
+<fieldset class="education">
+    <legend>Reference Contact</legend>
+    <div class="refdetails">
+      <input type="button" value="+" onclick="addrow('refdetails','ref',2)" style="display: inline-block;width:4%">
+      <input type="button" value="-" onclick="deleterow('refdetails','ref',2)" style="display: inline-block;width:4%">
+
         <div class="ref">
           <input type="hidden" name="rid" value="<%= data5 && data5[0] ? data5[0].id : '' %>"><br>
           Name <span name="refnameerror"></span>
@@ -416,13 +417,13 @@
           <input type="text" name="refrelation" id="refrelation2" value="<%=  data5 && data5[1] ? data5[1].relation : '' %>">
         </div>
 
-      </fieldset>
-      <br><br><br>
 
     </div>
-    <div class="education">
-      <fieldset>
-        <legend>Preferences</legend>
+</fieldset>
+<fieldset class="education">
+    <legend>Preferences</legend>
+    <div >
+      
         <input type="hidden" name="pid" id="pid" value="<%= data7 ? data7.id : '' %>"><br>
 
         Preferred Location <span id="locationerror"></span>
@@ -453,12 +454,13 @@
                 <option value="marketing" <% if(data7 && data7.department==="marketing") { %> selected <%}%> >Marketing</option>
             </select>
             <br><br>
-        </fieldset>
+        
         <br><br><br>
 
 
 
     </div>
+</fieldset>
     <div class="savedata" style="margin-bottom: 20px;">
         <h3>save data</h3>
         <input type="button" value="save" id="save">
@@ -474,7 +476,7 @@
     <script>
       
     
-      function addrow(mainclass,childclass){
+      function addrow(mainclass,childclass,count){
         let mainc=document.getElementsByClassName(mainclass);
         let childc=document.getElementsByClassName(childclass);
 
@@ -483,10 +485,10 @@
       }
       
 
-      function deleterow(mainclass,childclass){
+      function deleterow(mainclass,childclass,count){
         let mainc=document.getElementsByClassName(mainclass);
         let childc=document.getElementsByClassName(childclass);
-        if(childc.length<=3){
+        if(childc.length<=count){
             return;
         }
         else{
@@ -971,7 +973,7 @@
                     addresserror.style.color = "red";
                     return false;
                 }
-                if (city.trim() === "") {
+                if (city.trim() ==="") {
                     cityerror.innerHTML = "City required*";
                     cityerror.style.visibility = "visible";
                     cityerror.style.color = "red";
@@ -1101,7 +1103,7 @@
                         }
                         if (!dateValid(fromdate)) {
                             fromdateserror[i].innerHTML = " invalid date "
-                            return false;
+                            
                             return false;
 
                         }

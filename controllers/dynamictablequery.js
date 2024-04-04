@@ -34,24 +34,22 @@ const dynamicquery=(req,res)=>{
       con.query(final_query,(err,result)=>{
           if(err){
        
-             res.render("/home/vijay-solanki/Alltasks/views/dynamic query table/invalid.ejs",{errorDisplay:"invalid query "});
+             res.render("dynamic query table/invalid.ejs",{errorDisplay:"invalid query "});
               
              
           }
           else{
               if(result.length==0){
-                  res.render("/home/vijay-solanki/Alltasks/views/dynamic query table/invalid.ejs",{errorDisplay:" No data found"});
+                  res.render("dynamic query table/invalid.ejs",{errorDisplay:" No data found"});
                 }
                 else{
-  
-  
-                  let key=Object.keys(result[0]);
+               let key=Object.keys(result[0]);
                 console.log(limityes);
                 console.log(limitvalue);
                   if(limityes===true){
                       Items_per_page=5;
                       let lastPage=Math.ceil(limitvalue/Items_per_page);
-                      res.render("/home/vijay-solanki/Alltasks/views/dynamic query table/data.ejs",{result,key,
+                      res.render("dynamic query table/data.ejs",{result,key,
                           currentPage:page,
                           hasNextPage:page<lastPage,
                           hasPreviousPage:page>1, 
@@ -63,9 +61,9 @@ const dynamicquery=(req,res)=>{
                           
                        })
                   }
-                  // /home/vijay-solanki/Alltasks/views/dynamic query table/data.ejs
+              
                   else {
-                  res.render("/home/vijay-solanki/Alltasks/views/dynamic query table/data.ejs",{result,key,
+                  res.render("dynamic query table/data.ejs",{result,key,
                       currentPage:page,
                       hasNextPage:(Items_per_page*page)<200,
                       hasPreviousPage:page>1, 

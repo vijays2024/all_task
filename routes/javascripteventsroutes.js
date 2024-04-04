@@ -5,5 +5,5 @@ const router=express.Router()
 const authentication = require("../middleware/authentication");
 const { javascriptEvents } = require("../controllers/javascriptevents");
 
-router.get("/",javascriptEvents);
+router.get("/",authentication,javascriptEvents);
 module.exports=router

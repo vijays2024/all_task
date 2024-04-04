@@ -23,7 +23,7 @@ const jobappAjax=(req,res)=>{
 }
 
 const formupdateget=(req,res)=>{
-    var userId=req.params.id;
+    let userId=req.params.id;
     if(userId){
         let sql=`select * from basic_detail where id='${userId}'`;
         con.query(sql,(err,results)=>{

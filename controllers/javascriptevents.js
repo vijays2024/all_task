@@ -6,7 +6,7 @@ const path=require("path")
 
 const javascriptEvents=(req,res)=>{
 
-    res.sendFile("/home/vijay-solanki/Alltasks/views/javascript Events/javascriptEventPractice.html")
+    res.render("javascript Events/javascriptEventPractice.ejs")
 }
 
 module.exports={javascriptEvents}

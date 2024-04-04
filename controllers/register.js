@@ -13,22 +13,25 @@ const jwt=require("jsonwebtoken")
 // app.use(bodyParser.urlencoded({extended:true}))
 // app.use(express.json())
 const homeget=(req,res)=>{
+    console.log("hello");
     if(req.cookies.token){
          let token=req.cookies.token;
+         try{
          let user= jwt.verify(token,"sdjhksd");
-         if(user.email==="vijay@gmail.com"){
-    
          res.render("index");
          }
-         else{
-          res.redirect("/sign_in")
+         catch(error){
+            res.render("signup.ejs");
          }
-      
-     }
+     
+         
+        }
+     
      else{
-         res.render("signup");
+         res.render("signup.ejs");
      }
  }
+
 
 const registerpost=async (req,res)=>{
     try{
@@ -126,8 +129,8 @@ const postlogin=async (req,res)=>{
         if(user.password!==d_password){
             return res.json({msg:"Invalid email or password",msg2:""})
         } 
-        const token=jwt.sign({email},"sdjhksd",{expiresIn:"1h"})
-        res.cookie('token',token,{expires:new Date(Date.now()+900000),httpOnly:true})
+        const token=jwt.sign({email},"sdjhksd",{expiresIn:"24h"})
+        res.cookie('token',token,{expires:new Date(Date.now()+9000000),httpOnly:true})
         console.log("token",token);
       return res.json({msg:"login succesfully",token,msg_2:"click here to <a href=/> Go to dashboard</a>"})
 

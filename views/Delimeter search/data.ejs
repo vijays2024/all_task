@@ -56,6 +56,8 @@ a{
     <input type="text" name="query" id="query1" value="<%=query%>">
     <input type="submit" value="Go">
 </form>
+
+
  <table>
 
   <tr>
@@ -75,12 +77,13 @@ a{
     <td>:</td>
   </tr>
  </table>
+ <%if(noquery===1){%>
   <table>
     <tr>
    <th>firstname</th>
  <th>middlename</th>
 <th>DOB</th>
-<th>contactNum</th>
+
 <th>emailId</th>
 <th>city</th>
 <th>country</th>  
@@ -93,7 +96,7 @@ a{
         <td><%= entry.middlename%> </td>
         
         <td><%= entry.DOB %> </td>
-        <td><%= entry.contactNum%> </td>
+  
         <td><%= entry.emailId%> </td>
     
         <td><%= entry.city %> </td>
@@ -104,7 +107,7 @@ a{
        </tr> 
     <%  }) %>
   </table>
-
+<%}%>
   
 
 

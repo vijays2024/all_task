@@ -7,7 +7,7 @@ const path=require("path")
 const cukooCube=(req,res)=>{
 
 
-    res.sendFile("/home/vijay-solanki/Alltasks/views/cukoo cube/kuku_cube_exercise_js_.html");
+    res.render("cukoo cube/kuku_cube_exercise_js_.ejs");
 }
 
 module.exports={cukooCube};

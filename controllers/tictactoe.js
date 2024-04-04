@@ -3,7 +3,7 @@ const path=require("path")
 
 
 const tictactoe=(req,res)=>{
-      res.sendFile("/home/vijay-solanki/Alltasks/views/Tic Tac Toe/tictactoe.html")
+      res.render("Tic Tac Toe/tictactoe.ejs")
  }
 
  module.exports={tictactoe}

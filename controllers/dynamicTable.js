@@ -4,7 +4,8 @@ const path=require("path")
 
 const dynamicTable=(req,res)=>{
    
-        res.sendFile("/home/vijay-solanki/Alltasks/views/dynamic_table/DynamicTable.html")
+        res.render("dynamic_table/DynamicTable.ejs")
     }
 
 module.exports={dynamicTable}    
+
