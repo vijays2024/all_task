@@ -23,7 +23,7 @@ const delimeter=(req,res)=>{
          res.send("something went wrong");
      }
    
-    //  let pathval=path.join(__dirname,"views/Delimeter search/data.ejs");
+
      res.render("Delimeter search/data.ejs",{data:result,query:string1,noquery:1})
     
     })

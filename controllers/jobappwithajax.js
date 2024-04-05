@@ -4,7 +4,7 @@ const path=require("path")
 // app.get("/form",authentication,)
 
 const getform=(req,res)=>{
- res.render("/home/vijay-solanki/Alltasks/views/Ajax with Job Form/form2.ejs",{data:null,data1:null,data2:null,data3:null,data4:null,data5:null,data6:null,data7:null})
+ res.render("Ajax with Job Form/form2.ejs",{data:null,data1:null,data2:null,data3:null,data4:null,data5:null,data6:null,data7:null})
 }
 
 const jobappAjax=(req,res)=>{
@@ -16,7 +16,7 @@ const jobappAjax=(req,res)=>{
         else{
             console.log(result);
             // res.render(path.join(__dirname,'/views/Ajax with Job Form/data.ejs'),{users:result})
-            res.render("/home/vijay-solanki/Alltasks/views/Ajax with Job Form/data.ejs",{users:result})
+            res.render("Ajax with Job Form/data.ejs",{users:result})
         }
        
     })
@@ -82,7 +82,7 @@ const formupdateget=(req,res)=>{
                             }
                             else{
                                 console.log(result7);
-                                res.render("/home/vijay-solanki/Alltasks/views/Ajax with Job Form/form2.ejs",{data1:results[0],data:result2,data2:null,data3:result3,data4:result4,j:0,data5:result6,data6:result5,i:0,data7:result7[0]})
+                                res.render("Ajax with Job Form/form2.ejs",{data1:results[0],data:result2,data2:null,data3:result3,data4:result4,j:0,data5:result6,data6:result5,i:0,data7:result7[0]})
                             }
                          })
                           

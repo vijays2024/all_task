@@ -3,13 +3,13 @@ const app=express()
 const router=express.Router()
 
 const authentication = require("../middleware/authentication");
-const { homeget, registerpost, getPassword, postPassword, getlogin, postlogin, logout, forgotPassword1get, forgotPassword1post, forgotPasswordget, forgotPasswordpost } = require("../controllers/register");
+const { homeget, registerpost, getPassword, postPassword, getlogin, postlogin, logout, forgotPassword1get, forgotPassword1post, forgotPasswordget, forgotPasswordpost, generatetoken } = require("../controllers/register");
 
 router.get("/",homeget);
 router.post("/sign_up",registerpost);
 router.get("/password",getPassword)
 router.post("/password",postPassword)
-
+router.get("/generatetoken",generatetoken)
 router.get("/sign_in",getlogin)
 
 router.post("/sign_in",postlogin);

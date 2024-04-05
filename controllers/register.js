@@ -58,7 +58,9 @@ const registerpost=async (req,res)=>{
             counter+=1;
         }
         salt=salt.slice(0,4);
-        let response = await con.promise().query(`insert into users(first_name,last_name,email,salt,access_key) values ('${fname}','${lname}','${email}','${salt}','${access_key}')`);
+        // let response = await con.promise().query(`insert into users(first_name,last_name,email,salt,access_key) values ('${fname}','${lname}','${email}','${salt}','${access_key}')`);
+        let response = await con.promise().query('insert into users(first_name,last_name,email,salt,access_key) values (?,?,?,?,?)',[fname,lname,email,salt,access_key]);
+
         console.log(response);
         res.json({id:response[0].insertId,access_key,salt})
     }
@@ -72,7 +74,8 @@ const getPassword=async (req,res)=>{
     const {id,access_key,salt}=req.query;
     console.log("id");
     console.log(id);
-    let data= await con.promise().query(`select * from users where id='${id}'`)
+    // let data= await con.promise().query(`select * from users where id='${id}'`)
+    let data= await con.promise().query('select * from users where id=?',[id])
     console.log(data);
     let isvalid=true;
     if(access_key !== data[0][0].access_key) isvalid=false;
@@ -96,7 +99,8 @@ const postPassword=async (req,res)=>{
         // console.log(req);
         if(password===r_password){
             const hashed=md5(password+salt);
-              let data=await con.promise().query(`update users set password='${hashed}' where id=${id}`)
+            //   let data=await con.promise().query(`update users set password='${hashed}' where id=${id}`)
+              let data=await con.promise().query('update users set password=? where id=?',[hashed,id])
             res.json({status:200,msg:"Account activated successfully"});
         
         }
@@ -118,7 +122,8 @@ const getlogin=(req,res)=>{
 const postlogin=async (req,res)=>{
     try{
         const {email,password}=req.body;
-        let isUserExist=await con.promise().query(`select * from users where email='${email}'`)
+        // let isUserExist=await con.promise().query(`select * from users where email='${email}'`)
+         let isUserExist=await con.promise().query('select * from users where email=?',[email])
         if(isUserExist[0].length==0){
             return res.json({msg:"Invalid email or password",msg2:""})
 
@@ -155,7 +160,8 @@ const forgotPassword1post=async (req,res)=>{
     let email=req.body.email;
     console.log(req.body);
     
-    let result= await con.promise().query(`select * from users where email='${email}'`)
+    // let result= await con.promise().query(`select * from users where email='${email}'`)
+     let result=await con.promise().query('select * from users where email=?',[email])
     console.log(result[0]);
     if(result[0].length===0){
         return res.json({msg:"Invalid Email"})
@@ -178,12 +184,14 @@ const forgotPasswordpost=async (req,res)=>{
     let email=req.body.email;    
     let password=req.body.password;
    
-    let result=await con.promise().query(`select salt from users where email='${email}'`)
+    // let result=await con.promise().query(`select salt from users where email='${email}'`)
+    let result=await con.promise().query('select salt from users where email=?',[email])
     console.log(result[0][0].salt);
     let salt=result[0][0].salt;
     let  hashed=md5(password+salt);
 
-    let data=await con.promise().query(`update users set password='${hashed}' where email='${email}'`)
+    // let data=await con.promise().query(`update users set password='${hashed}' where email='${email}'`)
+    let data=await con.promise().query('update users set password=? where email=?',[hashed,password])
     console.log(data);
     if(data.length>0){
         return res.json({msg:"succesfull"})
@@ -196,5 +204,31 @@ const forgotPasswordpost=async (req,res)=>{
 
 }
 
+
+const generatetoken=async (req,res)=>{
+    try{
+        const {access_key}=req.query;
+        const isUserExist=await con.promise().query('select * from users where access_key=?',[access_key])
+        if(isUserExist[0].length===0)
+        return res.send("token not valid");
+       
+        let update_access_key="";
+        const characters="ABCDEFGHIJKLMN123456789OPQRSTUVWXYZ";
+        const charactersLength=characters.length;
+        let counter=0;
+        while(counter<=12){
+            update_access_key+=characters.charAt(Math.floor(Math.random()*charactersLength));
+            counter+=1;
+        }
+        const update_data=await con.promise().query('update users set access_key=?,created_at=now() where access_key=?',[update_access_key,access_key])
+        res.send(` <h3 style="color:blue;text-align: center;">Token Generated succesfully:${update_access_key}</h3>
+        <br>
+        <a href="/password/?id=${isUserExist[0][0].id}&access_key=${update_access_key}&salt=${isUserExist[0][0].salt}">click here to change password</a> `)
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
 module.exports={homeget,registerpost,getlogin,getPassword,forgotPassword1get,forgotPassword1post,forgotPasswordget,
-forgotPasswordpost,logout,postlogin,postPassword}
+forgotPasswordpost,logout,postlogin,postPassword,generatetoken}

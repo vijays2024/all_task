@@ -101,11 +101,14 @@ const resultwithId=(req,res)=>{
      where result_master.student_id =${userId}
      group by result_master.subject_id
      `;
+    
     console.log(userId); 
   
      con.query(query,(err,result)=>{
-        let query4=`select count(studentId) as total from attendance where statusPA='present' and studentId=${userId}`
-        con.query(query4,(err,result1)=>{
+        // let query4=`select count(studentId) as total from attendance where statusPA='present' and studentId=${userId}`
+        let query4='select count(studentId) as total from attendance where statusPA="present" and studentId=?'
+        let params=[userId]
+        con.query(query4,params,(err,result1)=>{
             if(err){
                 console.log(err);
             }

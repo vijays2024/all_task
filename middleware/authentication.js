@@ -1,30 +1,30 @@
-const express=require("express");
+const express = require("express");
 
-const app=express();
+const app = express();
 
-const jwt=require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 
 
 
-const authentication=async (req,res,next)=>{
-    if(req.cookies.token){
-        let token=req.cookies.token;
-        try{
-       let user= jwt.verify(token,"sdjhksd");
-       if(user.email==="vijay@gmail.com"){
-        next();
-       }
+const authentication = async (req, res, next) => {
+    if (req.cookies.token) {
+        let token = req.cookies.token;
+        try {
+            let user = jwt.verify(token, "sdjhksd");
+             next();
+
+        }
+        catch (error) {
+            console.log("hello");
+            res.redirect("/sign_in")
+        }
+
     }
-    catch(error){
-        console.log("hello");
-        res.redirect("/sign_in")
-    }
-     }
 
-    else{
+    else {
         res.redirect("/sign_in")
     }
 }
 
 
-module.exports=authentication;
+module.exports = authentication;

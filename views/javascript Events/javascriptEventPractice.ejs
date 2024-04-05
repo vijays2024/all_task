@@ -6,7 +6,7 @@
     <title>javascript basic practice</title>
    
 </head>
-<body  onoffline="fun21()" ononline="fun22()">
+<body  onoffline="fun21()" ononline="fun22()" onload="fun23()" >
     <table>
         <tr>
             <th>col1</th>
@@ -117,7 +117,7 @@
   <td style="height: 50px ;width: 50px; border: 1px solid black;" ></td>
   <td style="height: 50px ;width: 50px; border: 1px solid black;">
     <p id="change14" >vijaykumar</p>
-    <input type="button" value="click Me" onload="fun21()"></td>
+    <input type="button" value="click Me" ></td>
 </tr>
     </table>
     <script>
@@ -156,7 +156,7 @@
             py1.style.fontSize='5px';
           }
           function fun10(){
-            alert("onmousdown event occured");
+            alert("onmouseup event occured");
             var py2=document.getElementById('change4');
             py2.innerHTML='Hello ';
           }
@@ -215,6 +215,9 @@
            }
            function fun22(){
             alert("you are online")
+           }
+           function fun23(){
+            alert("onload event is occured")
            }
         </script> 
 </body>
