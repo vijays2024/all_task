@@ -65,7 +65,7 @@
 </div>
 
 <script>
-
+     
     let boxes=document.querySelectorAll(".box");
     let turn0=true;
     let clickCount=0;
@@ -85,6 +85,9 @@
       let iswinner=winnerchecking();
       
      if(iswinner==true){
+       boxes.forEach((box)=>{
+        box.disabled=true;
+       })
         setTimeout(()=>{
             restartGame();
         },10000)
@@ -101,17 +104,15 @@
     })
  function winnerchecking(){
     for(let pattern of patterns){
-        // console.log(pattern);
+       
         console.log(pattern[0])
         let val1=boxes[pattern[0]].innerHTML;
         let val2=boxes[pattern[1]].innerHTML;
         let val3=boxes[pattern[2]].innerHTML;
-        // console.log(val1+" value")
-        // console.log(val2 +" value");
-        // console.log(val3 +" value");
+     
         if(val1!="" && val2!="" &&val3!=""){
             if(val1==val2 && val2==val3){
-                // alert("player "+val1+" wins")
+            
                let result= document.getElementById("result");
                result.innerHTML="player  "+val1+" wins."
                console.log("winner player is "+val1);

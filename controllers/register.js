@@ -94,13 +94,10 @@ const getPassword=async (req,res)=>{
 const postPassword=async (req,res)=>{
     try{
         const {id,salt,password,r_password}=req.body;
-        // console.log(id);
-        // console.log(req.body);
-        // console.log(req);
+    
         if(password===r_password){
             const hashed=md5(password+salt);
-            //   let data=await con.promise().query(`update users set password='${hashed}' where id=${id}`)
-              let data=await con.promise().query('update users set password=? where id=?',[hashed,id])
+        let data=await con.promise().query('update users set password=? where id=?',[hashed,id])
             res.json({status:200,msg:"Account activated successfully"});
         
         }
@@ -122,7 +119,7 @@ const getlogin=(req,res)=>{
 const postlogin=async (req,res)=>{
     try{
         const {email,password}=req.body;
-        // let isUserExist=await con.promise().query(`select * from users where email='${email}'`)
+   
          let isUserExist=await con.promise().query('select * from users where email=?',[email])
         if(isUserExist[0].length==0){
             return res.json({msg:"Invalid email or password",msg2:""})
@@ -160,7 +157,7 @@ const forgotPassword1post=async (req,res)=>{
     let email=req.body.email;
     console.log(req.body);
     
-    // let result= await con.promise().query(`select * from users where email='${email}'`)
+
      let result=await con.promise().query('select * from users where email=?',[email])
     console.log(result[0]);
     if(result[0].length===0){
@@ -184,13 +181,11 @@ const forgotPasswordpost=async (req,res)=>{
     let email=req.body.email;    
     let password=req.body.password;
    
-    // let result=await con.promise().query(`select salt from users where email='${email}'`)
+    
     let result=await con.promise().query('select salt from users where email=?',[email])
     console.log(result[0][0].salt);
     let salt=result[0][0].salt;
     let  hashed=md5(password+salt);
-
-    // let data=await con.promise().query(`update users set password='${hashed}' where email='${email}'`)
     let data=await con.promise().query('update users set password=? where email=?',[hashed,password])
     console.log(data);
     if(data.length>0){

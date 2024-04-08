@@ -5,11 +5,11 @@ const path=require("path")
 
 
 const jsonplaceholderapi=(req,res)=>{
-    res.sendFile("/home/vijay-solanki/Alltasks/views/json Placeholder Api/index2.html")
+    res.render("json Placeholder Api/index2.ejs")
 }
 
 const details=(req,res)=>{
-    res.sendFile("/home/vijay-solanki/Alltasks/views/json Placeholder Api/personal.html")
+    res.render("json Placeholder Api/personal.ejs")
 };
 
 module.exports={jsonplaceholderapi,details}

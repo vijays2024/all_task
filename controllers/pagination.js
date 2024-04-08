@@ -10,7 +10,7 @@ const pagination=(req,res)=>{
     const sortcolumn=req.query.sort || 'firstname';
     const sortOrder=req.query.sortOrder || 'ASC'
     
-   
+   try {
     con.query('select count(*) AS total from student_master',(err,result)=>{
         if(err){
             console.log(err);
@@ -30,10 +30,7 @@ const pagination=(req,res)=>{
             res.send("something went wrong");
         }
         else {
-           
-        
-        
-            res.render('/home/vijay-solanki/Alltasks/views/pagination/data.ejs',{
+           res.render('/home/vijay-solanki/Alltasks/views/pagination/data.ejs',{
                 data:result,
                 currentPage:page,
                 hasNextPage:(Items_per_page*page)<total,
@@ -49,6 +46,11 @@ const pagination=(req,res)=>{
     })
 }
 })
+    
+   } catch (error) {
+    
+   }
+   
 
 }
 

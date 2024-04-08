@@ -158,61 +158,67 @@ const postdata=(req,res)=>{
     // if(req.body.and_or == 'and'){
 
     // }  
-    con.query(`select * from (SELECT 
-        student.stdentId,
-        student.firstname,
-        SUM(CASE
-            WHEN exam_master.exam_type = 'prilim' THEN result_master.obtain_practical_marks
-            ELSE 0
-        END) AS total_prelim_practical_marks,
-        SUM(CASE
-            WHEN exam_master.exam_type = 'prilim' THEN result_master.obtain_theory_marks
-            ELSE 0
-        END) AS total_prelim_theory_marks,
-        SUM(CASE
-            WHEN exam_master.exam_type = 'Terminal' THEN result_master.obtain_practical_marks
-            ELSE 0
-        END) AS total_terminal_practical_marks,
-        SUM(CASE
-            WHEN exam_master.exam_type = 'Terminal' THEN result_master.obtain_theory_marks
-            ELSE 0
-        END) AS total_terminal_theory_marks,
-        SUM(CASE
-            WHEN exam_master.exam_type = 'Final' THEN result_master.obtain_practical_marks
-            ELSE 0
-        END) AS total_final_practical_marks,
-        SUM(CASE
-            WHEN exam_master.exam_type = 'Final' THEN result_master.obtain_theory_marks
-            ELSE 0
-        END) AS total_final_theory_marks,
-        SUM(result_master.obtain_practical_marks + result_master.obtain_theory_marks) AS total
-    FROM
-        student
-            INNER JOIN
-        result_master ON student.stdentId = result_master.student_id
-            INNER JOIN
-        exam_master ON result_master.exam_id = exam_master.exam_id
-    GROUP BY student.stdentId order by student.stdentId) as tt1 WHERE
-    firstname LIKE '%${fname}%'
-            ${option1} (total_prelim_practical_marks + total_prelim_theory_marks) > ${prilim}
-            ${option1} (total_terminal_practical_marks + total_terminal_theory_marks) > ${terminal}
-            ${option1} (total_final_practical_marks + total_final_theory_marks) > ${final}
-            ${option1} total >${total}
-            ;`,(err,rows)=>{
-                console.log(rows);
-        if(err) throw err;
-       let lastIndex=Math.ceil(200/Items_per_page);
-       
-        res.render("exam Grid/search.ejs",{results:rows, currentPage:page,
-            hasNextPage:(Items_per_page*page)<200,
-            hasPreviousPage:page>1, 
-            nextPage:page+1,
-            previousPage:page-1,
-            lastPage:Math.ceil(200/Items_per_page),
-            lastIndex:lastIndex,
-            search:1
+
+    try {
+        con.query(`select * from (SELECT 
+            student.stdentId,
+            student.firstname,
+            SUM(CASE
+                WHEN exam_master.exam_type = 'prilim' THEN result_master.obtain_practical_marks
+                ELSE 0
+            END) AS total_prelim_practical_marks,
+            SUM(CASE
+                WHEN exam_master.exam_type = 'prilim' THEN result_master.obtain_theory_marks
+                ELSE 0
+            END) AS total_prelim_theory_marks,
+            SUM(CASE
+                WHEN exam_master.exam_type = 'Terminal' THEN result_master.obtain_practical_marks
+                ELSE 0
+            END) AS total_terminal_practical_marks,
+            SUM(CASE
+                WHEN exam_master.exam_type = 'Terminal' THEN result_master.obtain_theory_marks
+                ELSE 0
+            END) AS total_terminal_theory_marks,
+            SUM(CASE
+                WHEN exam_master.exam_type = 'Final' THEN result_master.obtain_practical_marks
+                ELSE 0
+            END) AS total_final_practical_marks,
+            SUM(CASE
+                WHEN exam_master.exam_type = 'Final' THEN result_master.obtain_theory_marks
+                ELSE 0
+            END) AS total_final_theory_marks,
+            SUM(result_master.obtain_practical_marks + result_master.obtain_theory_marks) AS total
+        FROM
+            student
+                INNER JOIN
+            result_master ON student.stdentId = result_master.student_id
+                INNER JOIN
+            exam_master ON result_master.exam_id = exam_master.exam_id
+        GROUP BY student.stdentId order by student.stdentId) as tt1 WHERE
+        firstname LIKE '%${fname}%'
+                ${option1} (total_prelim_practical_marks + total_prelim_theory_marks) > ${prilim}
+                ${option1} (total_terminal_practical_marks + total_terminal_theory_marks) > ${terminal}
+                ${option1} (total_final_practical_marks + total_final_theory_marks) > ${final}
+                ${option1} total >${total}
+                ;`,(err,rows)=>{
+                    console.log(rows);
+            if(err) throw err;
+           let lastIndex=Math.ceil(200/Items_per_page);
+           
+            res.render("exam Grid/search.ejs",{results:rows, currentPage:page,
+                hasNextPage:(Items_per_page*page)<200,
+                hasPreviousPage:page>1, 
+                nextPage:page+1,
+                previousPage:page-1,
+                lastPage:Math.ceil(200/Items_per_page),
+                lastIndex:lastIndex,
+                search:1
+            });
         });
-    });
+    } catch (error) {
+       console.log(error); 
+    }
+   
 }
 
 

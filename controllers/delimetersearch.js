@@ -4,8 +4,8 @@ let f=require("../practice")
 const delimeter=(req,res)=>{
 
     let query1=req.query.query ||""; 
-    if(query1===""){
-        res.render("Delimeter search/data.ejs",{noquery:0,query:"",data:null})
+    if(query1.trim()===""){
+        res.render("Delimeter search/data.ejs",{noquery:0,query:query1.trim(),data:null})
     }
     else{
     let string1="select * from student_master limit 10";
@@ -18,15 +18,20 @@ const delimeter=(req,res)=>{
     else{
      query1=f.stringReturn(string1);
     }
-    con.query(query1,(err,result)=>{
-     if(err){
-         res.send("something went wrong");
-     }
+    try {
+        con.query(query1,(err,result)=>{
+            if(err){
+                res.send("something went wrong");
+            }
+          
+       
+            res.render("Delimeter search/data.ejs",{data:result,query:string1,noquery:1})
+           
+           })
+    } catch (error) {
+        console.log(error);
+    }
    
-
-     res.render("Delimeter search/data.ejs",{data:result,query:string1,noquery:1})
-    
-    })
 }
  }
 

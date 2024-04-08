@@ -511,8 +511,7 @@
             let z = validateForm();
 
             if (z === false) {
-                // next.disabled=true;
-                // previous.disabled=true;
+            
                 return;
             }
             else {
@@ -833,8 +832,7 @@
             console.log("techknown array");
             console.log(techknown);
          let idb=document.getElementById('idb').value;
-    //      console.log(idb);
-    // console.log( widfinalarr,ridfinalarr,eidfinalarr);
+
              
             try {
                 await fetch('/jobappAjax/save-details', {
